@@ -1,4 +1,4 @@
-package gol;
+package io.github.liutaurasvilda.gol;
 
 final class MutationRules {
 
