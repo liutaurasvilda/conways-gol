@@ -39,8 +39,8 @@ final class World {
         IntStream.range(0, SIZE)
                  .forEach(x -> IntStream.range(0, SIZE)
                  .forEach(y -> {
-                     MutationRules.Builder rules = new MutationRules.Builder();
-                     rules.livingNeighbors(Location.of(x, y).numberOfLivingNeighborsAround(map, SIZE));
+                     ConwaysRules.Builder rules = new ConwaysRules.Builder();
+                     rules.withLivingNeighbors(Location.of(x, y).numberOfLivingNeighborsAround(map, SIZE));
                      newWorld.map.put(Location.of(x, y), this.map.get(Location.of(x, y)).mutate(rules.build()));
                  }));
         return newWorld;

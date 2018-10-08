@@ -26,8 +26,21 @@ final class Cell {
         return new Cell(State.DEAD);
     }
 
-    Cell mutate(MutationRules rules) {
+    Cell mutate(ConwaysRules rules) {
         Objects.requireNonNull(rules);
-        return rules.apply(this.state, rules.withLivingNeighbors());
+        return rules.apply(this.state);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return state == cell.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(state);
     }
 }
