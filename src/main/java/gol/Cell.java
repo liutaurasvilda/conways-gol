@@ -2,7 +2,7 @@ package gol;
 
 import java.util.Objects;
 
-final class Cell implements Mutates {
+final class Cell {
 
     enum State {
         ALIVE, DEAD
@@ -26,7 +26,7 @@ final class Cell implements Mutates {
         return new Cell(State.DEAD);
     }
 
-    public Cell mutate(MutationRules rules) {
+    Cell mutate(MutationRules rules) {
         Objects.requireNonNull(rules);
         int livingNeighbors = rules.livingNeighbors();
         if (state == State.ALIVE && livingNeighbors < 2) {

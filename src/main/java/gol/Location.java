@@ -18,6 +18,7 @@ final class Location {
     }
 
     int numberOfLivingNeighborsAround(Map<Location, Cell> map, int size) {
+        // TODO implement
         return 0;
     }
 
