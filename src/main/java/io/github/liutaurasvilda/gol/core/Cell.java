@@ -1,4 +1,4 @@
-package io.github.liutaurasvilda.gol;
+package io.github.liutaurasvilda.gol.core;
 
 import java.util.Objects;
 
