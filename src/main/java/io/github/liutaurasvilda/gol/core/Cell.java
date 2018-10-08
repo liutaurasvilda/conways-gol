@@ -28,15 +28,6 @@ final class Cell {
 
     Cell mutate(MutationRules rules) {
         Objects.requireNonNull(rules);
-        int livingNeighbors = rules.livingNeighbors();
-        if (state == State.ALIVE && livingNeighbors < 2) {
-            return dead();
-        } else if (state == State.ALIVE && (livingNeighbors == 2 || livingNeighbors == 3)) {
-            return alive();
-        } else if (state == State.DEAD && livingNeighbors == 3) {
-            return alive();
-        } else {
-            return dead();
-        }
+        return rules.apply(this.state, rules.withLivingNeighbors());
     }
 }

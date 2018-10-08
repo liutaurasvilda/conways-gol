@@ -1,5 +1,7 @@
 package io.github.liutaurasvilda.gol.core;
 
+import java.util.function.BiFunction;
+
 final class MutationRules {
 
     private final int livingNeighbors;
@@ -8,11 +10,28 @@ final class MutationRules {
         this.livingNeighbors = builder.livingNeighbors;
     }
 
-    int livingNeighbors() {
+    int withLivingNeighbors() {
         return livingNeighbors;
     }
 
+    Cell apply(Cell.State state, int neighbors) {
+        BiFunction<Cell.State, Integer, Cell> f = (s, n) -> {
+            switch (state) {
+                case StaALIVE:
+                    if (livingNeighbors == 2) return Cell.alive();
+                    if (livingNeighbors == 3) return Cell.alive();
+                    else return Cell.dead();
+                case DEAD:
+                    if (livingNeighbors == 3) return Cell.alive();
+                    else return Cell.dead();
+                default: return Cell.dead();
+            }
+        };
+        return f.apply(state, neighbors);
+    }
+
     final static class Builder {
+
         private int livingNeighbors;
 
         Builder() {
