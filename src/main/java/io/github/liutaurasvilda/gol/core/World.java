@@ -34,11 +34,11 @@ public final class World {
     public World nextGeneration() {
         World newWorld = new World();
         IntStream.range(0, SIZE)
-                 .forEach(x -> IntStream.range(0, SIZE)
-                 .forEach(y -> {
+                 .forEach(r -> IntStream.range(0, SIZE)
+                 .forEach(c -> {
                      ConwaysRules.Builder rules = new ConwaysRules.Builder();
-                     rules.withLivingNeighbors(Location.of(x, y).numberOfLivingNeighborsInA(map));
-                     newWorld.map.put(Location.of(x, y), this.map.get(Location.of(x, y)).mutate(rules.build()));
+                     rules.withLivingNeighbors(Location.of(r, c).numberOfLivingNeighborsInA(map));
+                     newWorld.map.put(Location.of(r, c), this.map.get(Location.of(r, c)).mutate(rules.build()));
                  }));
         return newWorld;
     }
