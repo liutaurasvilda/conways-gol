@@ -38,11 +38,11 @@ final class Location {
         );
         return neighborsLocations
                 .stream()
-                .map(location::getNeighbor)
+                .map(location::neighbor)
                 .collect(Collectors.toList());
     }
 
-    private Location getNeighbor(Location to) {
+    private Location neighbor(Location to) {
         return Location.of((x + to.x) % World.SIZE, (y + to.y) % World.SIZE);
     }
 
