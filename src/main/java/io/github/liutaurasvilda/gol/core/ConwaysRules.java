@@ -11,9 +11,9 @@ final class ConwaysRules implements MutationRules {
     }
 
     @Override
-    public Cell apply(Cell.State state) {
-        BiFunction<Cell.State, Long, Cell> f = (s, n) -> {
-            switch (state) {
+    public Cell apply(Cell cell) {
+        BiFunction<Cell, Long, Cell> f = (s, n) -> {
+            switch (cell.state()) {
                 case ALIVE:
                     if (livingNeighbors == 2) return Cell.alive();
                     if (livingNeighbors == 3) return Cell.alive();
@@ -22,7 +22,7 @@ final class ConwaysRules implements MutationRules {
                 default: return Cell.dead();
             }
         };
-        return f.apply(state, livingNeighbors);
+        return f.apply(cell, livingNeighbors);
     }
 
     final static class Builder {

@@ -28,7 +28,7 @@ final class Cell {
 
     Cell mutate(MutationRules rules) {
         Objects.requireNonNull(rules);
-        return rules.apply(this.state);
+        return rules.apply(this);
     }
 
     @Override
