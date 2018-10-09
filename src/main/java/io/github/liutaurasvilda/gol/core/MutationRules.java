@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol.core;
 
-public interface MutationRules {
+interface MutationRules {
 
     Cell apply(Cell cell);
 }
