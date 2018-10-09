@@ -12,8 +12,8 @@ public final class World {
     private World() {
         this.map = new LinkedHashMap<>();
         IntStream.range(0, SIZE)
-                 .forEach(x -> IntStream.range(0, SIZE)
-                 .forEach(y -> map.put(Location.of(x, y), Cell.dead())));
+                 .forEach(r -> IntStream.range(0, SIZE)
+                 .forEach(c -> map.put(Location.of(r, c), Cell.dead())));
     }
 
     public static World empty() {
@@ -47,9 +47,9 @@ public final class World {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         IntStream.range(0, SIZE)
-                 .forEach(x -> {
+                 .forEach(r -> {
                      IntStream.range(0, SIZE)
-                              .forEach(y -> sb.append(map.get(Location.of(x, y))));
+                              .forEach(c -> sb.append(map.get(Location.of(r, c))));
                      sb.append("\n");
                  });
         return sb.toString();
