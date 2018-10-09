@@ -26,7 +26,7 @@ final class Cell {
         return new Cell(State.DEAD);
     }
 
-    Cell mutate(ConwaysRules rules) {
+    Cell mutate(MutationRules rules) {
         Objects.requireNonNull(rules);
         return rules.apply(this.state);
     }
@@ -42,5 +42,10 @@ final class Cell {
     @Override
     public int hashCode() {
         return Objects.hash(state);
+    }
+
+    @Override
+    public String toString() {
+        return state == State.ALIVE ? "0" : ".";
     }
 }

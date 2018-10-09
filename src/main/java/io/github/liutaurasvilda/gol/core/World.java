@@ -20,10 +20,10 @@ final class World {
         return new World();
     }
 
-    boolean isEmpty() {
+    boolean hasPopulation() {
         return map.entrySet()
                   .stream()
-                  .allMatch(e -> e.getValue().state() == Cell.State.DEAD);
+                  .anyMatch(e -> e.getValue().state() == Cell.State.ALIVE);
     }
 
     void aliveAt(Location location) {
@@ -44,5 +44,17 @@ final class World {
                      newWorld.map.put(Location.of(x, y), this.map.get(Location.of(x, y)).mutate(rules.build()));
                  }));
         return newWorld;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        IntStream.range(0, SIZE)
+                 .forEach(x -> {
+                     IntStream.range(0, SIZE)
+                              .forEach(y -> sb.append(map.get(Location.of(x, y))));
+                     sb.append("\n");
+                 });
+        return sb.toString();
     }
 }
