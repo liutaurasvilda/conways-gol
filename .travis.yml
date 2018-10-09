@@ -1,1 +1,6 @@
 language: java
+addons:
+  sonarcloud:
+    organization: "liutaurasvilda-github"
+script:
+  - sonar-scanner
