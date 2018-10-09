@@ -17,12 +17,12 @@ public final class Location {
         return new Location(x, y);
     }
 
-    long numberOfLivingNeighborsAround(Map<Location, Cell> map) {
+    long numberOfLivingNeighborsAround(Map<Location, Mutable> map) {
         List<Location> neighbors = neighborsOf(this);
         return map.entrySet()
            .stream()
            .filter(e -> neighbors.contains(e.getKey()))
-           .filter(e -> e.getValue().state() == Cell.State.ALIVE).count();
+           .filter(e -> e.getValue().state() == Mutable.State.ALIVE).count();
     }
 
     private List<Location> neighborsOf(Location location) {

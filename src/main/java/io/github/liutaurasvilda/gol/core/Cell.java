@@ -2,11 +2,7 @@ package io.github.liutaurasvilda.gol.core;
 
 import java.util.Objects;
 
-final class Cell {
-
-    enum State {
-        ALIVE, DEAD
-    }
+final class Cell implements Mutable {
 
     private final State state;
 
@@ -14,19 +10,21 @@ final class Cell {
         this.state = state;
     }
 
-    State state() {
-        return state;
-    }
-
-    static Cell alive() {
+    static Mutable alive() {
         return new Cell(State.ALIVE);
     }
 
-    static Cell dead() {
+    static Mutable dead() {
         return new Cell(State.DEAD);
     }
 
-    Cell mutate(MutationRules rules) {
+    @Override
+    public State state() {
+        return state;
+    }
+
+    @Override
+    public Mutable mutate(MutationRules rules) {
         Objects.requireNonNull(rules);
         return rules.apply(this);
     }

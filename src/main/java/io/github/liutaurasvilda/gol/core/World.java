@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public final class World {
 
     static final int SIZE = 10;
-    private final Map<Location, Cell> map;
+    private final Map<Location, Mutable> map;
 
     private World() {
         this.map = new LinkedHashMap<>();
@@ -23,7 +23,7 @@ public final class World {
     public boolean hasPopulation() {
         return map.entrySet()
                   .stream()
-                  .anyMatch(e -> e.getValue().state() == Cell.State.ALIVE);
+                  .anyMatch(e -> e.getValue().state() == Mutable.State.ALIVE);
     }
 
     public void aliveAt(Location location) {
