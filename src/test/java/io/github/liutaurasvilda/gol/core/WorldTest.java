@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * @author AxiomSL
- */
 public class WorldTest {
 
     @Test

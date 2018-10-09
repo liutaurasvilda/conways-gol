@@ -1,8 +1,5 @@
 package io.github.liutaurasvilda.gol.core;
 
-/**
- * @author AxiomSL
- */
 public class GoLLauncher {
 
     private GoLLauncher() {

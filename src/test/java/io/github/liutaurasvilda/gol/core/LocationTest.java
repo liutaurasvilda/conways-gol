@@ -7,9 +7,6 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-/**
- * @author AxiomSL
- */
 public class LocationTest {
 
     @Test
