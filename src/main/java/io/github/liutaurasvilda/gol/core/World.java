@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-final class World {
+public final class World {
 
     static final int SIZE = 10;
     private final Map<Location, Cell> map;
@@ -16,25 +16,21 @@ final class World {
                  .forEach(y -> map.put(Location.of(x, y), Cell.dead())));
     }
 
-    static World empty() {
+    public static World empty() {
         return new World();
     }
 
-    boolean hasPopulation() {
+    public boolean hasPopulation() {
         return map.entrySet()
                   .stream()
                   .anyMatch(e -> e.getValue().state() == Cell.State.ALIVE);
     }
 
-    void aliveAt(Location location) {
+    public void aliveAt(Location location) {
         map.put(location, Cell.alive());
     }
 
-    void deadAt(Location location) {
-        map.put(location, Cell.dead());
-    }
-
-    World nextGeneration() {
+    public World nextGeneration() {
         World newWorld = new World();
         IntStream.range(0, SIZE)
                  .forEach(x -> IntStream.range(0, SIZE)

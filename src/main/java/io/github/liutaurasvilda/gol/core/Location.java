@@ -3,7 +3,7 @@ package io.github.liutaurasvilda.gol.core;
 import java.util.*;
 import java.util.stream.Collectors;
 
-final class Location {
+public final class Location {
 
     private final int x;
     private final int y;
@@ -13,7 +13,7 @@ final class Location {
         this.y = y;
     }
 
-    static Location of(int x, int y) {
+    public static Location of(int x, int y) {
         return new Location(x, y);
     }
 

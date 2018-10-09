@@ -1,4 +1,7 @@
-package io.github.liutaurasvilda.gol.core;
+package io.github.liutaurasvilda.gol.ui;
+
+import io.github.liutaurasvilda.gol.core.Location;
+import io.github.liutaurasvilda.gol.core.World;
 
 public class GoLLauncher {
 
