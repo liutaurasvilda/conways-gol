@@ -5,19 +5,19 @@ import java.util.stream.Collectors;
 
 public final class Location {
 
-    private final int x;
-    private final int y;
+    private final int r;
+    private final int c;
 
-    private Location(int x, int y) {
-        this.x = x;
-        this.y = y;
+    private Location(int r, int c) {
+        this.r = r;
+        this.c = c;
     }
 
-    public static Location of(int x, int y) {
-        return new Location(x, y);
+    public static Location of(int r, int c) {
+        return new Location(r, c);
     }
 
-    long numberOfLivingNeighborsAround(Map<Location, Mutable> map) {
+    long numberOfLivingNeighborsInA(Map<Location, Mutable> map) {
         List<Location> neighbors = neighborsOf(this);
         return map.entrySet()
                   .stream()
@@ -26,7 +26,7 @@ public final class Location {
     }
 
     private List<Location> neighborsOf(Location location) {
-        List<Location> neighborsLocations = Arrays.asList(
+        List<Location> neighborsCoordinates = Arrays.asList(
                 Location.of(-1, -1),
                 Location.of(-1, 0),
                 Location.of(-1, +1),
@@ -36,14 +36,14 @@ public final class Location {
                 Location.of(+1, 0),
                 Location.of(+1, +1)
         );
-        return neighborsLocations
+        return neighborsCoordinates
                 .stream()
                 .map(location::neighbor)
                 .collect(Collectors.toList());
     }
 
     private Location neighbor(Location to) {
-        return Location.of((x + to.x) % World.SIZE, (y + to.y) % World.SIZE);
+        return Location.of((r + to.r) % World.SIZE, (c + to.c) % World.SIZE);
     }
 
     @Override
@@ -51,12 +51,12 @@ public final class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return x == location.x &&
-                y == location.y;
+        return r == location.r &&
+                c == location.c;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(r, c);
     }
 }

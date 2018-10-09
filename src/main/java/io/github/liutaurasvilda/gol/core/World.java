@@ -20,15 +20,16 @@ public final class World {
         return new World();
     }
 
+    public void aliveAt(Location location) {
+        map.put(location, Cell.alive());
+    }
+
     public boolean hasPopulation() {
         return map.entrySet()
                   .stream()
                   .anyMatch(e -> e.getValue().phase() == Mutable.Phase.ALIVE);
     }
 
-    public void aliveAt(Location location) {
-        map.put(location, Cell.alive());
-    }
 
     public World nextGeneration() {
         World newWorld = new World();
@@ -36,7 +37,7 @@ public final class World {
                  .forEach(x -> IntStream.range(0, SIZE)
                  .forEach(y -> {
                      ConwaysRules.Builder rules = new ConwaysRules.Builder();
-                     rules.withLivingNeighbors(Location.of(x, y).numberOfLivingNeighborsAround(map));
+                     rules.withLivingNeighbors(Location.of(x, y).numberOfLivingNeighborsInA(map));
                      newWorld.map.put(Location.of(x, y), this.map.get(Location.of(x, y)).mutate(rules.build()));
                  }));
         return newWorld;
