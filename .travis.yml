@@ -1,1 +1,8 @@
 language: java
+addons:
+  sonarcloud:
+    organization: liutaurasvilda-github
+    token:
+      secure: ec68dd1107797373cff334e8d60c620750719961
+script:
+  - sonar-scanner
