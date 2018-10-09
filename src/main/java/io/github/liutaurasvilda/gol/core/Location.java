@@ -1,7 +1,7 @@
 package io.github.liutaurasvilda.gol.core;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 final class Location {
 
@@ -17,9 +17,33 @@ final class Location {
         return new Location(x, y);
     }
 
-    int numberOfLivingNeighborsAround(Map<Location, Cell> map, int size) {
-        // TODO implement
-        return 0;
+    long numberOfLivingNeighborsAround(Map<Location, Cell> map) {
+        List<Location> neighbors = neighborsOf(this);
+        return map.entrySet()
+           .stream()
+           .filter(e -> neighbors.contains(e.getKey()))
+           .filter(e -> e.getValue().state() == Cell.State.ALIVE).count();
+    }
+
+    private List<Location> neighborsOf(Location location) {
+        List<Location> neighborsLocations = Arrays.asList(
+                Location.of(-1, -1),
+                Location.of(-1, 0),
+                Location.of(-1, +1),
+                Location.of(0, -1),
+                Location.of(0, +1),
+                Location.of(+1, -1),
+                Location.of(+1, 0),
+                Location.of(+1, +1)
+        );
+        return neighborsLocations
+                .stream()
+                .map(location::getNeighbor)
+                .collect(Collectors.toList());
+    }
+
+    private Location getNeighbor(Location to) {
+        return Location.of((x + to.x) % World.SIZE, (y + to.y) % World.SIZE);
     }
 
     @Override

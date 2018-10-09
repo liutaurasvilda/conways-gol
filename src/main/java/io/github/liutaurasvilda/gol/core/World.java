@@ -6,8 +6,8 @@ import java.util.stream.IntStream;
 
 final class World {
 
+    static final int SIZE = 10;
     private final Map<Location, Cell> map;
-    private final int SIZE = 50;
 
     private World() {
         this.map = new LinkedHashMap<>();
@@ -40,7 +40,7 @@ final class World {
                  .forEach(x -> IntStream.range(0, SIZE)
                  .forEach(y -> {
                      ConwaysRules.Builder rules = new ConwaysRules.Builder();
-                     rules.withLivingNeighbors(Location.of(x, y).numberOfLivingNeighborsAround(map, SIZE));
+                     rules.withLivingNeighbors(Location.of(x, y).numberOfLivingNeighborsAround(map));
                      newWorld.map.put(Location.of(x, y), this.map.get(Location.of(x, y)).mutate(rules.build()));
                  }));
         return newWorld;

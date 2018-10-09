@@ -4,7 +4,7 @@ import java.util.function.BiFunction;
 
 final class ConwaysRules implements MutationRules {
 
-    private final int livingNeighbors;
+    private final long livingNeighbors;
 
     private ConwaysRules(Builder builder) {
         this.livingNeighbors = builder.livingNeighbors;
@@ -12,7 +12,7 @@ final class ConwaysRules implements MutationRules {
 
     @Override
     public Cell apply(Cell.State state) {
-        BiFunction<Cell.State, Integer, Cell> f = (s, n) -> {
+        BiFunction<Cell.State, Long, Cell> f = (s, n) -> {
             switch (state) {
                 case ALIVE:
                     if (livingNeighbors == 2) return Cell.alive();
@@ -27,12 +27,12 @@ final class ConwaysRules implements MutationRules {
 
     final static class Builder {
 
-        private int livingNeighbors;
+        private long livingNeighbors;
 
         Builder() {
         }
 
-        Builder withLivingNeighbors(int livingNeighbors) {
+        Builder withLivingNeighbors(long livingNeighbors) {
             this.livingNeighbors = livingNeighbors;
             return this;
         }
