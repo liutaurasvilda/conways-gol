@@ -20,9 +20,9 @@ public final class Location {
     long numberOfLivingNeighborsAround(Map<Location, Mutable> map) {
         List<Location> neighbors = neighborsOf(this);
         return map.entrySet()
-           .stream()
-           .filter(e -> neighbors.contains(e.getKey()))
-           .filter(e -> e.getValue().state() == Mutable.State.ALIVE).count();
+                  .stream()
+                  .filter(e -> neighbors.contains(e.getKey()))
+                  .filter(e -> e.getValue().phase() == Mutable.Phase.ALIVE).count();
     }
 
     private List<Location> neighborsOf(Location location) {

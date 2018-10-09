@@ -7,12 +7,12 @@ import static org.junit.Assert.*;
 public class CellTest {
 
     @Test
-    public void alive_cell_state_is_alive() {
+    public void two_alive_cells_are_indistinguishable() {
         assertEquals(Cell.alive(), Cell.alive());
     }
 
     @Test
-    public void dead_cell_state_is_dead() {
+    public void two_dead_cells_are_indistinguishable() {
         assertEquals(Cell.dead(), Cell.dead());
     }
 

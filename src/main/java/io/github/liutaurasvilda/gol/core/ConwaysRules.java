@@ -13,7 +13,7 @@ final class ConwaysRules implements MutationRules {
     @Override
     public Mutable apply(Mutable mutable) {
         Function<Mutable, Mutable> f = cell -> {
-            switch (cell.state()) {
+            switch (cell.phase()) {
                 case ALIVE:
                     if (livingNeighbors == 2) return Cell.alive();
                     if (livingNeighbors == 3) return Cell.alive();

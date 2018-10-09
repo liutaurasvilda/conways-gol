@@ -4,23 +4,23 @@ import java.util.Objects;
 
 final class Cell implements Mutable {
 
-    private final State state;
+    private final Phase phase;
 
-    private Cell(State state) {
-        this.state = state;
+    private Cell(Phase phase) {
+        this.phase = phase;
     }
 
     static Mutable alive() {
-        return new Cell(State.ALIVE);
+        return new Cell(Phase.ALIVE);
     }
 
     static Mutable dead() {
-        return new Cell(State.DEAD);
+        return new Cell(Phase.DEAD);
     }
 
     @Override
-    public State state() {
-        return state;
+    public Phase phase() {
+        return phase;
     }
 
     @Override
@@ -34,16 +34,16 @@ final class Cell implements Mutable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
-        return state == cell.state;
+        return phase == cell.phase;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(state);
+        return Objects.hash(phase);
     }
 
     @Override
     public String toString() {
-        return state == State.ALIVE ? "0" : ".";
+        return phase == Phase.ALIVE ? "0" : ".";
     }
 }

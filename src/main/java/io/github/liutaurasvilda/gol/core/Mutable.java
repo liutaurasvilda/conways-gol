@@ -2,11 +2,11 @@ package io.github.liutaurasvilda.gol.core;
 
 interface Mutable {
 
-    enum State {
+    enum Phase {
         ALIVE, DEAD
     }
 
-    State state();
+    Phase phase();
 
     Mutable mutate(MutationRules rules);
 }

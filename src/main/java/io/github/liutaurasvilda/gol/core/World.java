@@ -23,7 +23,7 @@ public final class World {
     public boolean hasPopulation() {
         return map.entrySet()
                   .stream()
-                  .anyMatch(e -> e.getValue().state() == Mutable.State.ALIVE);
+                  .anyMatch(e -> e.getValue().phase() == Mutable.Phase.ALIVE);
     }
 
     public void aliveAt(Location location) {
