@@ -2,5 +2,7 @@ language: java
 addons:
   sonarcloud:
     organization: "liutaurasvilda-github"
+    token:
+      secure: c19068cded3cadbf9aa002d30414fd9ab2a62b26
 script:
   - sonar-scanner
