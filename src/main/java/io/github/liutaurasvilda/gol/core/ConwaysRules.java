@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol.core;
 
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 final class ConwaysRules implements MutationRules {
 
@@ -12,7 +12,7 @@ final class ConwaysRules implements MutationRules {
 
     @Override
     public Cell apply(Cell cell) {
-        BiFunction<Cell, Long, Cell> f = (s, n) -> {
+        Function<Cell, Cell> f = c -> {
             switch (cell.state()) {
                 case ALIVE:
                     if (livingNeighbors == 2) return Cell.alive();
@@ -22,7 +22,7 @@ final class ConwaysRules implements MutationRules {
                 default: return Cell.dead();
             }
         };
-        return f.apply(cell, livingNeighbors);
+        return f.apply(cell);
     }
 
     final static class Builder {
