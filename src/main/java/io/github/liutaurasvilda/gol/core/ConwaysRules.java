@@ -17,15 +17,17 @@ final class ConwaysRules implements MutationRules {
                 case ALIVE:
                     if (livingNeighbors == 2) return Cell.alive();
                     if (livingNeighbors == 3) return Cell.alive();
+                    break;
                 case DEAD:
                     if (livingNeighbors == 3) return Cell.alive();
-                default: return Cell.dead();
+                    break;
             }
+            return Cell.dead();
         };
         return f.apply(mutable);
     }
 
-    final static class Builder {
+    static final class Builder {
 
         private long livingNeighbors;
 
