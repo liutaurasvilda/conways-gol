@@ -9,13 +9,13 @@ final class CLILauncher {
     }
 
     public static void main(String[] args) {
-        World w = World.empty();
-        w.aliveAt(Location.of(4, 4));
-        w.aliveAt(Location.of(5, 4));
-        w.aliveAt(Location.of(6, 4));
-        while (w.hasPopulation()) {
-            System.out.println(w);
-            w = w.nextGeneration();
+        World world = World.empty();
+        world.aliveAt(Location.of(4, 4));
+        world.aliveAt(Location.of(5, 4));
+        world.aliveAt(Location.of(6, 4));
+        while (world.hasPopulation()) {
+            System.out.println(world);
+            world = world.nextGeneration();
         }
     }
 }
