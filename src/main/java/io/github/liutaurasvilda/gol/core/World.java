@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol.core;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
@@ -10,7 +10,7 @@ final class World {
     private final int SIZE = 50;
 
     private World() {
-        this.map = new HashMap<>();
+        this.map = new LinkedHashMap<>();
         IntStream.range(0, SIZE)
                  .forEach(x -> IntStream.range(0, SIZE)
                  .forEach(y -> map.put(Location.of(x, y), Cell.dead())));
