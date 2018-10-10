@@ -17,6 +17,16 @@ public class CellTest {
     }
 
     @Test
+    public void two_ALIVE_phases_are_equal() {
+        assertEquals(Mutable.Phase.ALIVE, Mutable.Phase.ALIVE);
+    }
+
+    @Test
+    public void two_DEAD_phases_are_equal() {
+        assertEquals(Mutable.Phase.DEAD, Mutable.Phase.DEAD);
+    }
+
+    @Test
     public void two_alive_cells_are_indistinguishable() {
         assertEquals(Cell.alive(), Cell.alive());
     }
