@@ -10,8 +10,14 @@ import static org.junit.Assert.*;
 public class LocationTest {
 
     @Test
-    public void same_locations_are_equal() {
+    public void two_same_locations_are_equal() {
         assertEquals(Location.of(0, 0), Location.of(0, 0));
+    }
+
+    @Test
+    public void two_same_location_references_refer_to_same_object() {
+        Location location = Location.of(0, 0);
+        assertEquals(location, location);
     }
 
     @Test
