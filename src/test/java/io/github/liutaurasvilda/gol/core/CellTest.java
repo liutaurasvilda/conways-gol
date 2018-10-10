@@ -8,12 +8,12 @@ public class CellTest {
 
     @Test
     public void alive_cell_phase_is_ALIVE() {
-        assertSame(Cell.alive().phase(), Mutable.Phase.ALIVE);
+        assertSame(Mutable.Phase.ALIVE, Cell.alive().phase());
     }
 
     @Test
     public void dead_cell_phase_is_DEAD() {
-        assertSame(Cell.dead().phase(), Mutable.Phase.DEAD);
+        assertSame(Mutable.Phase.DEAD, Cell.dead().phase());
     }
 
     @Test

@@ -34,7 +34,7 @@ public final class Location {
                 .stream()
                 .map(this::neighbor)
                 .map(map::get)
-                .filter(c -> c.phase() == Mutable.Phase.ALIVE)
+                .filter(cell -> cell.equals(Cell.alive()))
                 .count();
 
     }
