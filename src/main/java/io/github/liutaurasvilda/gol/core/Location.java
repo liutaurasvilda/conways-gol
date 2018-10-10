@@ -1,7 +1,9 @@
 package io.github.liutaurasvilda.gol.core;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public final class Location {
 
@@ -18,16 +20,7 @@ public final class Location {
     }
 
     long numberOfLivingNeighborsInA(Map<Location, Mutable> map) {
-        Objects.requireNonNull(map);
-        List<Location> neighbors = neighborsOf(this);
-        return map.entrySet()
-                  .stream()
-                  .filter(e -> neighbors.contains(e.getKey()))
-                  .filter(e -> e.getValue().phase() == Mutable.Phase.ALIVE).count();
-    }
-
-    private List<Location> neighborsOf(Location location) {
-        List<Location> neighborsCoordinates = Arrays.asList(
+        List<Location> neighborhood = Arrays.asList(
                 Location.of(-1, -1),
                 Location.of(-1, 0),
                 Location.of(-1, +1),
@@ -37,14 +30,18 @@ public final class Location {
                 Location.of(+1, 0),
                 Location.of(+1, +1)
         );
-        return neighborsCoordinates
+        return neighborhood
                 .stream()
-                .map(location::neighbor)
-                .collect(Collectors.toList());
+                .map(this::neighbor)
+                .map(map::get)
+                .filter(c -> c.phase() == Mutable.Phase.ALIVE)
+                .count();
+
     }
 
-    private Location neighbor(Location to) {
-        return Location.of((r + to.r) % World.SIZE, (c + to.c) % World.SIZE);
+    private Location neighbor(Location distance) {
+        return Location.of((r + distance.r + World.SIZE) % World.SIZE,
+                (c + distance.c + World.SIZE) % World.SIZE);
     }
 
     @Override

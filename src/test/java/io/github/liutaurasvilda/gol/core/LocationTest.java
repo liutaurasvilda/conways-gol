@@ -43,13 +43,4 @@ public class LocationTest {
         map.put(Location.of(4, 4), Cell.alive());
         assertNull(map.get(Location.of(7, 7)));
     }
-
-    @Test
-    public void number_of_living_neighbors_in_a_given_map() {
-        Map<Location, Mutable> map = new LinkedHashMap<>();
-        map.put(Location.of(4, 4), Cell.alive());
-        map.put(Location.of(4, 5), Cell.alive());
-        map.put(Location.of(4, 6), Cell.alive());
-        assertEquals(2, Location.of(4, 5).numberOfLivingNeighborsInA(map));
-    }
 }
