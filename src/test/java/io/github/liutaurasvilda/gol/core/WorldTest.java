@@ -48,4 +48,24 @@ public class WorldTest {
         world.aliveAt(Location.of(2, 0));
         assertTrue(world.nextGeneration().hasPopulation());
     }
+
+    @Test
+    public void world_toString() {
+        String expected =
+                "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "....0.....\n" +
+                "....0.....\n" +
+                "....0.....\n" +
+                "..........\n" +
+                "..........\n" +
+                "..........\n";
+        World world = World.empty();
+        world.aliveAt(Location.of(4, 4));
+        world.aliveAt(Location.of(5, 4));
+        world.aliveAt(Location.of(6, 4));
+        assertEquals(expected, world.toString());
+    }
 }
