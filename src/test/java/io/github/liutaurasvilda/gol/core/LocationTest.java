@@ -21,6 +21,16 @@ public class LocationTest {
     }
 
     @Test
+    public void two_locations_in_different_columns_are_not_equal() {
+        assertNotEquals(Location.of(4, 4), Location.of(4, 7));
+    }
+
+    @Test
+    public void two_locations_in_different_rows_and_columns_are_not_equal() {
+        assertNotEquals(Location.of(4, 4), Location.of(7, 7));
+    }
+
+    @Test
     public void location_and_pure_object_are_not_equal() {
         assertNotEquals(Location.of(0, 0), new Object());
     }
