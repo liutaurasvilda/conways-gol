@@ -47,9 +47,8 @@ public final class World {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         IntStream.range(0, SIZE)
-                 .forEach(r -> {
-                     IntStream.range(0, SIZE)
-                              .forEach(c -> sb.append(map.get(Location.of(r, c))));
+                 .forEach(r -> { IntStream.range(0, SIZE)
+                 .forEach(c -> sb.append(map.get(Location.of(r, c))));
                      sb.append("\n");
                  });
         return sb.toString();
