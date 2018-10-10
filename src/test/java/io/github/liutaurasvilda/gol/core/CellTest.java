@@ -57,4 +57,24 @@ public class CellTest {
         ConwaysRules.Builder rules = new ConwaysRules.Builder().withLivingNeighbors(4);
         assertEquals(Cell.dead(), Cell.dead().mutate(rules.build()));
     }
+
+    @Test
+    public void two_live_cells_hashes_are_same() {
+        assertEquals(Cell.alive().hashCode(), Cell.alive().hashCode());
+    }
+
+    @Test
+    public void live_and_dead_cells_hashes_are_different() {
+        assertNotEquals(Cell.alive().hashCode(), Cell.dead().hashCode());
+    }
+
+    @Test
+    public void live_cell_toString() {
+        assertEquals("0", Cell.alive().toString());
+    }
+
+    @Test
+    public void dead_cell_toString() {
+        assertEquals(".", Cell.dead().toString());
+    }
 }
