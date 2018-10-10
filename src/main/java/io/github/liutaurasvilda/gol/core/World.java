@@ -13,7 +13,7 @@ public final class World {
         this.map = new LinkedHashMap<>();
         IntStream.range(0, SIZE)
                  .forEach(r -> IntStream.range(0, SIZE)
-                 .forEach(c -> map.put(Location.of(r, c), Cell.dead())));
+                 .forEach(c -> map.put(Location.of(r, c), Cell.DEAD)));
     }
 
     public static World empty() {
@@ -21,13 +21,13 @@ public final class World {
     }
 
     public void aliveAt(Location location) {
-        map.put(location, Cell.alive());
+        map.put(location, Cell.ALIVE);
     }
 
     public boolean hasPopulation() {
         return map.entrySet()
                   .stream()
-                  .anyMatch(e -> e.getValue().phase() == Mutable.Phase.ALIVE);
+                  .anyMatch(e -> e.getValue() == Cell.ALIVE);
     }
 
     public World nextGeneration() {

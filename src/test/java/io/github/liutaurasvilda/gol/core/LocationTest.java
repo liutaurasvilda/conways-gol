@@ -33,14 +33,14 @@ public class LocationTest {
     @Test
     public void existing_location_is_found_in_locations_map() {
         Map<Location, Mutable> map = new LinkedHashMap<>();
-        map.put(Location.of(4, 4), Cell.alive());
+        map.put(Location.of(4, 4), Cell.ALIVE);
         assertNotNull(map.get(Location.of(4, 4)));
     }
 
     @Test
     public void non_existing_location_is_not_found_in_locations_map() {
         Map<Location, Mutable> map = new LinkedHashMap<>();
-        map.put(Location.of(4, 4), Cell.alive());
+        map.put(Location.of(4, 4), Cell.ALIVE);
         assertNull(map.get(Location.of(7, 7)));
     }
 }

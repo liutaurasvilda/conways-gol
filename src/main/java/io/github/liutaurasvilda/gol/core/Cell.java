@@ -1,48 +1,17 @@
 package io.github.liutaurasvilda.gol.core;
 
-import java.util.Objects;
+enum Cell implements Mutable {
 
-final class Cell implements Mutable {
+    ALIVE("0"), DEAD(".");
 
-    private final Phase phase;
+    private final String symbol;
 
-    private Cell(Phase phase) {
-        this.phase = phase;
-    }
-
-    static Mutable alive() {
-        return new Cell(Phase.ALIVE);
-    }
-
-    static Mutable dead() {
-        return new Cell(Phase.DEAD);
-    }
-
-    @Override
-    public Phase phase() {
-        return phase;
-    }
-
-    @Override
-    public Mutable mutate(MutationRules rules) {
-        return Objects.requireNonNull(rules).apply(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return phase == cell.phase;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(phase);
+    Cell(String symbol) {
+        this.symbol = symbol;
     }
 
     @Override
     public String toString() {
-        return phase == Phase.ALIVE ? "0" : ".";
+        return this.symbol;
     }
 }

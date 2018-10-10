@@ -34,7 +34,7 @@ public final class Location {
                 .stream()
                 .map(this::neighbor)
                 .map(map::get)
-                .filter(cell -> cell.equals(Cell.alive()))
+                .filter(cell -> cell == Cell.ALIVE)
                 .count();
 
     }

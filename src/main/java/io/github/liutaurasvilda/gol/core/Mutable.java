@@ -1,12 +1,10 @@
 package io.github.liutaurasvilda.gol.core;
 
+import java.util.Objects;
+
 interface Mutable {
 
-    enum Phase {
-        ALIVE, DEAD
+    default Mutable mutate(MutationRules rules) {
+        return Objects.requireNonNull(rules).apply(this);
     }
-
-    Phase phase();
-
-    Mutable mutate(MutationRules rules);
 }
