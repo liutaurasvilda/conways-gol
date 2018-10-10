@@ -37,6 +37,16 @@ public class CellTest {
     }
 
     @Test
+    public void two_cells_alive_and_dead_are_not_equal() {
+        assertNotEquals(Cell.alive(), Cell.dead());
+    }
+
+    @Test
+    public void two_cells_alive_and_dead_phases_are_not_equal() {
+        assertNotEquals(Cell.alive().phase(), Cell.dead().phase());
+    }
+
+    @Test
     public void alive_cell_and_pure_object_are_not_equal() {
         assertNotEquals(Cell.alive(), new Object());
     }
