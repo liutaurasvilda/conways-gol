@@ -17,6 +17,26 @@ public class CellTest {
     }
 
     @Test
+    public void alive_cell_and_pure_object_are_not_equal() {
+        assertNotEquals(Cell.alive(), new Object());
+    }
+
+    @Test
+    public void alive_cell_and_null_are_not_equal() {
+        assertNotEquals(Cell.alive(), null);
+    }
+
+    @Test
+    public void dead_cell_and_pure_object_are_not_equal() {
+        assertNotEquals(Cell.dead(), new Object());
+    }
+
+    @Test
+    public void dead_cell_and_null_are_not_equal() {
+        assertNotEquals(Cell.dead(), null);
+    }
+
+    @Test
     public void alive_cell_mutates_to_dead_with_less_than_two_alive_neighbors() {
         ConwaysRules.Builder rules = new ConwaysRules.Builder().withLivingNeighbors(1);
         assertEquals(Cell.dead(), Cell.alive().mutate(rules.build()));

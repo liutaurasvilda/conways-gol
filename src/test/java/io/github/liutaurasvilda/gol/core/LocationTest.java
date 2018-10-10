@@ -15,6 +15,16 @@ public class LocationTest {
     }
 
     @Test
+    public void location_and_pure_object_are_not_equal() {
+        assertNotEquals(Location.of(0, 0), new Object());
+    }
+
+    @Test
+    public void location_and_null_are_not_equal() {
+        assertNotEquals(Location.of(0, 0), null);
+    }
+
+    @Test
     public void existing_location_is_found_in_locations_map() {
         Map<Location, Mutable> map = new LinkedHashMap<>();
         map.put(Location.of(4, 4), Cell.alive());
