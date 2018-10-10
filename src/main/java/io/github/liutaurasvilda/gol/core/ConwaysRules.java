@@ -1,5 +1,6 @@
 package io.github.liutaurasvilda.gol.core;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 final class ConwaysRules implements MutationRules {
@@ -24,7 +25,7 @@ final class ConwaysRules implements MutationRules {
             }
             return Cell.dead();
         };
-        return f.apply(mutable);
+        return f.apply(Objects.requireNonNull(mutable));
     }
 
     static final class Builder {

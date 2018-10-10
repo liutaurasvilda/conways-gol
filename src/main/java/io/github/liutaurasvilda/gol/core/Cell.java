@@ -25,8 +25,7 @@ final class Cell implements Mutable {
 
     @Override
     public Mutable mutate(MutationRules rules) {
-        Objects.requireNonNull(rules);
-        return rules.apply(this);
+        return Objects.requireNonNull(rules).apply(this);
     }
 
     @Override

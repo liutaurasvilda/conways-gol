@@ -30,7 +30,6 @@ public final class World {
                   .anyMatch(e -> e.getValue().phase() == Mutable.Phase.ALIVE);
     }
 
-
     public World nextGeneration() {
         World newWorld = new World();
         IntStream.range(0, SIZE)

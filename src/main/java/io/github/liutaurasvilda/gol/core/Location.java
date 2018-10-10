@@ -18,6 +18,7 @@ public final class Location {
     }
 
     long numberOfLivingNeighborsInA(Map<Location, Mutable> map) {
+        Objects.requireNonNull(map);
         List<Location> neighbors = neighborsOf(this);
         return map.entrySet()
                   .stream()
