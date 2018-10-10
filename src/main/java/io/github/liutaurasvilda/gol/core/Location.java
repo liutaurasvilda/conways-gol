@@ -36,7 +36,6 @@ public final class Location {
                 .map(map::get)
                 .filter(mutable -> mutable.equals(Cell.ALIVE))
                 .count();
-
     }
 
     private Location neighbor(Location distance) {
