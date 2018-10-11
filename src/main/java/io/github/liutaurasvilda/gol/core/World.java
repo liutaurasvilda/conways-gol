@@ -25,8 +25,7 @@ public final class World implements Generation {
     }
 
     public boolean hasPopulation() {
-        return map.entrySet()
-                  .stream()
+        return map.entrySet().stream()
                   .anyMatch(e -> e.getValue().equals(Cell.ALIVE));
     }
 
