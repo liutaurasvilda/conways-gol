@@ -56,16 +56,18 @@ public class WorldTest {
                 "..........\n" +
                 "..........\n" +
                 "..........\n" +
-                "....0.....\n" +
-                "....0.....\n" +
-                "....0.....\n" +
+                ".....0....\n" +
+                "......0...\n" +
+                "....000...\n" +
                 "..........\n" +
                 "..........\n" +
                 "..........\n";
         World world = World.empty();
-        world.aliveAt(Location.of(4, 4));
-        world.aliveAt(Location.of(5, 4));
+        world.aliveAt(Location.of(4, 5));
+        world.aliveAt(Location.of(5, 6));
         world.aliveAt(Location.of(6, 4));
+        world.aliveAt(Location.of(6, 5));
+        world.aliveAt(Location.of(6, 6));
         assertEquals(expected, world.toString());
     }
 }
