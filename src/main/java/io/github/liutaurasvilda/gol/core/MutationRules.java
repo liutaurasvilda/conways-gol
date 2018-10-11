@@ -20,10 +20,6 @@ final class MutationRules {
         }
 
         Function<Mutable, Mutable> build() {
-            return f();
-        }
-
-        private Function<Mutable, Mutable> f() {
             return mutable -> {
                 if (mutable.equals(Cell.ALIVE)) {
                     if (livingNeighbors == 2) return Cell.ALIVE;
