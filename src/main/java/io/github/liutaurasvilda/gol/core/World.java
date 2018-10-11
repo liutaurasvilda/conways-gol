@@ -27,7 +27,7 @@ public final class World {
 
     public boolean hasPopulation() {
         return map.entrySet().stream()
-                  .anyMatch(e -> e.getValue().equals(Cell.ALIVE));
+                  .anyMatch(e -> !e.getValue().equals(Cell.EMPTY));
     }
 
     public World nextGeneration() {
