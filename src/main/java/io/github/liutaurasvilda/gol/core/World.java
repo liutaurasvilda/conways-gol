@@ -31,7 +31,7 @@ public final class World {
     }
 
     public World nextGeneration() {
-        World newWorld = new World();
+        World newWorld = empty();
         IntStream.range(0, SIZE)
                  .forEach(r -> IntStream.range(0, SIZE)
                  .forEach(c -> {
