@@ -2,10 +2,11 @@ package io.github.liutaurasvilda.gol.core;
 
 import org.junit.Test;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class LocationTest {
 
@@ -41,16 +42,17 @@ public class LocationTest {
     }
 
     @Test
-    public void existing_location_is_found_in_locations_map() {
-        Map<Location, Mutable> map = new LinkedHashMap<>();
-        map.put(Location.of(4, 4), Cell.ALIVE);
-        assertNotNull(map.get(Location.of(4, 4)));
-    }
-
-    @Test
-    public void non_existing_location_is_not_found_in_locations_map() {
-        Map<Location, Mutable> map = new LinkedHashMap<>();
-        map.put(Location.of(4, 4), Cell.ALIVE);
-        assertNull(map.get(Location.of(7, 7)));
+    public void location_neighborhood_identified_correctly() {
+        List<Location> neighborhood = Arrays.asList(
+                Location.of(3, 3),
+                Location.of(3, 4),
+                Location.of(3, 5),
+                Location.of(4, 3),
+                Location.of(4, 5),
+                Location.of(5, 3),
+                Location.of(5, 4),
+                Location.of(5, 5)
+        );
+        assertEquals(neighborhood, Location.of(4, 4).neighborhood());
     }
 }
