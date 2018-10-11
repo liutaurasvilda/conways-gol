@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public final class World implements Generation {
+public final class World {
 
     static final int SIZE = 10;
     private final Map<Location, Mutable> map;
@@ -30,7 +30,6 @@ public final class World implements Generation {
                   .anyMatch(e -> e.getValue().equals(Cell.ALIVE));
     }
 
-    @Override
     public World nextGeneration() {
         World newWorld = empty();
         MutationRules.Builder rules = new MutationRules.Builder();
