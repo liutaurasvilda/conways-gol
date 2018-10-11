@@ -32,7 +32,7 @@ public final class World implements Generation {
     @Override
     public World nextGeneration() {
         World newWorld = empty();
-        ConwaysRules.Builder rules = new ConwaysRules.Builder();
+        MutationRules.Builder rules = new MutationRules.Builder();
         IntStream.range(0, SIZE)
             .forEach(r -> IntStream.range(0, SIZE)
             .forEach(c -> {

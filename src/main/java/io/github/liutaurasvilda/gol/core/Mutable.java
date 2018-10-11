@@ -1,10 +1,11 @@
 package io.github.liutaurasvilda.gol.core;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 interface Mutable {
 
-    default Mutable mutate(MutationRules rules) {
-        return Objects.requireNonNull(rules).apply(this);
+    default Mutable mutate(Function<Mutable, Mutable> f) {
+        return Objects.requireNonNull(f).apply(this);
     }
 }
