@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public final class World {
+public final class World implements Generation {
 
     static final int SIZE = 10;
     private final Map<Location, Mutable> map;
@@ -30,6 +30,7 @@ public final class World {
                   .anyMatch(e -> e.getValue().equals(Cell.ALIVE));
     }
 
+    @Override
     public World nextGeneration() {
         World newWorld = empty();
         IntStream.range(0, SIZE)
