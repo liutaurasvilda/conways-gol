@@ -43,9 +43,14 @@ public class CellTest {
     }
 
     @Test
-    public void dead_cell_stays_dead_with_four_alive_neighbor() {
+    public void dead_cell_stays_dead_with_four_alive_neighbors() {
         ConwaysRules.Builder rules = new ConwaysRules.Builder().withLivingNeighbors(4);
         assertEquals(Cell.DEAD, Cell.DEAD.mutate(rules.build()));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void throws_exception_if_has_no_mutation_rules_provided_to_mutate() {
+        Cell.ALIVE.mutate(null);
     }
 
     @Test
