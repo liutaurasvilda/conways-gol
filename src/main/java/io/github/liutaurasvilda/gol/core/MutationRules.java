@@ -19,6 +19,10 @@ final class MutationRules {
             return this;
         }
 
+        Function<Mutable, Mutable> build() {
+            return f();
+        }
+
         private Function<Mutable, Mutable> f() {
             return mutable -> {
                 if (mutable.equals(Cell.ALIVE)) {
@@ -29,10 +33,6 @@ final class MutationRules {
                 }
                 return Cell.DEAD;
             };
-        }
-
-        Function<Mutable, Mutable> build() {
-            return f();
         }
     }
 }
