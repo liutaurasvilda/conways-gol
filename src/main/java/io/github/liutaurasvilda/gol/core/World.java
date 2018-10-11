@@ -36,13 +36,13 @@ public final class World implements Generation {
         IntStream.range(0, SIZE)
             .forEach(r -> IntStream.range(0, SIZE)
             .forEach(c -> {
-                rules.withLivingNeighbors(count(Location.of(r, c)));
+                rules.withLivingNeighbors(countAt(Location.of(r, c)));
                 newWorld.map.put(Location.of(r, c), mutableAt(Location.of(r, c)).mutate(rules.build()));
             }));
         return newWorld;
     }
 
-    private long count(Location location) {
+    private long countAt(Location location) {
         return location.neighborhood().stream()
                    .map(map::get).filter(n -> n.equals(Cell.ALIVE)).count();
     }
