@@ -4,6 +4,9 @@ import java.util.function.Function;
 
 final class MutationRules {
 
+    private MutationRules() {
+    }
+
     static final class Builder {
 
         private long livingNeighbors;
