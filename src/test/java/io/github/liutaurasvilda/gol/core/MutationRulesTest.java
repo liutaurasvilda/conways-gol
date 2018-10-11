@@ -2,6 +2,8 @@ package io.github.liutaurasvilda.gol.core;
 
 import org.junit.Test;
 
+import java.util.function.Function;
+
 import static org.junit.Assert.assertEquals;
 
 public class MutationRulesTest {
@@ -31,21 +33,32 @@ public class MutationRulesTest {
     }
 
     @Test
+    public void rules_with_two_alive_neighbor_applied_to_empty_cell_returns_empty_cell() {
+        MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(2);
+        assertEquals(Cell.EMPTY, rules.build().apply(Cell.EMPTY));
+    }
+
+    @Test
     public void rules_with_three_alive_neighbors_applied_to_empty_cell_returns_alive_cell() {
         MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(3);
         assertEquals(Cell.ALIVE, rules.build().apply(Cell.EMPTY));
     }
 
     @Test
-    public void rules_with_one_alive_neighbor_applied_to_empty_cell_returns_empty_cell() {
-        MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(1);
+    public void rules_with_four_alive_neighbors_applied_to_empty_cell_returns_empty_cell() {
+        MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(4);
         assertEquals(Cell.EMPTY, rules.build().apply(Cell.EMPTY));
     }
 
     @Test
-    public void rules_with_four_alive_neighbors_applied_to_empty_cell_returns_empty_cell() {
-        MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(4);
-        assertEquals(Cell.EMPTY, rules.build().apply(Cell.EMPTY));
+    public void rules_applied_to_other_than_alive_or_empty_cell_returns_empty_cell() {
+        MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(0);
+        assertEquals(Cell.EMPTY, rules.build().apply(new Mutable() {
+            @Override
+            public Mutable mutate(Function<Mutable, Mutable> f) {
+                return this;
+            }
+        }));
     }
 
     @Test(expected = NullPointerException.class)
