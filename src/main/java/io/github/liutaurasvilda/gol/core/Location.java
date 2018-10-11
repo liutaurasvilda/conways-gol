@@ -30,8 +30,7 @@ public final class Location {
                 Location.of(+1, 0),
                 Location.of(+1, +1)
         );
-        return neighborhood
-                .stream()
+        return neighborhood.stream()
                 .map(this::neighbor)
                 .map(map::get)
                 .filter(mutable -> mutable.equals(Cell.ALIVE))
