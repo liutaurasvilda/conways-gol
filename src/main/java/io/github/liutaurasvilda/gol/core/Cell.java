@@ -2,7 +2,7 @@ package io.github.liutaurasvilda.gol.core;
 
 enum Cell implements Mutable {
 
-    ALIVE("0"), DEAD(".");
+    ALIVE("0"), EMPTY(".");
 
     private final String symbol;
 

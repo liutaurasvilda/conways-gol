@@ -24,10 +24,10 @@ final class MutationRules {
                 if (mutable.equals(Cell.ALIVE)) {
                     if (livingNeighbors == 2) return Cell.ALIVE;
                     if (livingNeighbors == 3) return Cell.ALIVE;
-                } else if (mutable.equals(Cell.DEAD)) {
+                } else if (mutable.equals(Cell.EMPTY)) {
                     if (livingNeighbors == 3) return Cell.ALIVE;
                 }
-                return Cell.DEAD;
+                return Cell.EMPTY;
             };
         }
     }

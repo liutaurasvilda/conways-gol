@@ -7,9 +7,9 @@ import static org.junit.Assert.*;
 public class CellTest {
 
     @Test
-    public void alive_cell_mutates_to_dead_with_less_than_two_alive_neighbors() {
+    public void alive_cell_mutates_to_empty_with_less_than_two_alive_neighbors() {
         MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(1);
-        assertEquals(Cell.DEAD, Cell.ALIVE.mutate(rules.build()));
+        assertEquals(Cell.EMPTY, Cell.ALIVE.mutate(rules.build()));
     }
 
     @Test
@@ -25,27 +25,27 @@ public class CellTest {
     }
 
     @Test
-    public void alive_cell_mutates_to_dead_with_more_than_three_alive_neighbors() {
+    public void alive_cell_mutates_to_empty_with_more_than_three_alive_neighbors() {
         MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(4);
-        assertEquals(Cell.DEAD, Cell.ALIVE.mutate(rules.build()));
+        assertEquals(Cell.EMPTY, Cell.ALIVE.mutate(rules.build()));
     }
 
     @Test
-    public void dead_cell_mutates_to_alive_with_three_alive_neighbors() {
+    public void empty_cell_mutates_to_alive_with_three_alive_neighbors() {
         MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(3);
-        assertEquals(Cell.ALIVE, Cell.DEAD.mutate(rules.build()));
+        assertEquals(Cell.ALIVE, Cell.EMPTY.mutate(rules.build()));
     }
 
     @Test
-    public void dead_cell_stays_dead_with_one_alive_neighbor() {
+    public void empty_cell_stays_empty_with_one_alive_neighbor() {
         MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(1);
-        assertEquals(Cell.DEAD, Cell.DEAD.mutate(rules.build()));
+        assertEquals(Cell.EMPTY, Cell.EMPTY.mutate(rules.build()));
     }
 
     @Test
-    public void dead_cell_stays_dead_with_four_alive_neighbors() {
+    public void empty_cell_stays_empty_with_four_alive_neighbors() {
         MutationRules.Builder rules = new MutationRules.Builder().withLivingNeighbors(4);
-        assertEquals(Cell.DEAD, Cell.DEAD.mutate(rules.build()));
+        assertEquals(Cell.EMPTY, Cell.EMPTY.mutate(rules.build()));
     }
 
     @Test(expected = NullPointerException.class)
@@ -59,7 +59,7 @@ public class CellTest {
     }
 
     @Test
-    public void dead_cell_toString() {
-        assertEquals(".", Cell.DEAD.toString());
+    public void empty_cell_toString() {
+        assertEquals(".", Cell.EMPTY.toString());
     }
 }

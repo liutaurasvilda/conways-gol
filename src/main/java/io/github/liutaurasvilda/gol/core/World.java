@@ -14,7 +14,7 @@ public final class World implements Generation {
         this.map = new LinkedHashMap<>();
         IntStream.range(0, SIZE)
             .forEach(r -> IntStream.range(0, SIZE)
-            .forEach(c -> map.put(Location.of(r, c), Cell.DEAD)));
+            .forEach(c -> map.put(Location.of(r, c), Cell.EMPTY)));
     }
 
     public static World empty() {
