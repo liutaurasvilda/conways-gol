@@ -12,8 +12,8 @@ public final class World implements Generation {
     private World() {
         this.map = new LinkedHashMap<>();
         IntStream.range(0, SIZE)
-                 .forEach(r -> IntStream.range(0, SIZE)
-                 .forEach(c -> map.put(Location.of(r, c), Cell.DEAD)));
+            .forEach(r -> IntStream.range(0, SIZE)
+            .forEach(c -> map.put(Location.of(r, c), Cell.DEAD)));
     }
 
     public static World empty() {
@@ -32,24 +32,33 @@ public final class World implements Generation {
     @Override
     public World nextGeneration() {
         World newWorld = empty();
+        ConwaysRules.Builder rules = new ConwaysRules.Builder();
         IntStream.range(0, SIZE)
-                 .forEach(r -> IntStream.range(0, SIZE)
-                 .forEach(c -> {
-                     ConwaysRules.Builder rules = new ConwaysRules.Builder();
-                     rules.withLivingNeighbors(Location.of(r, c).numberOfLivingNeighborsInA(map));
-                     newWorld.map.put(Location.of(r, c), this.map.get(Location.of(r, c)).mutate(rules.build()));
-                 }));
+            .forEach(r -> IntStream.range(0, SIZE)
+            .forEach(c -> {
+                rules.withLivingNeighbors(count(Location.of(r, c)));
+                newWorld.map.put(Location.of(r, c), mutableAt(Location.of(r, c)).mutate(rules.build()));
+            }));
         return newWorld;
+    }
+
+    private long count(Location location) {
+        return location.neighborhood().stream()
+                   .map(map::get).filter(n -> n.equals(Cell.ALIVE)).count();
+    }
+
+    private Mutable mutableAt(Location location) {
+        return map.get(location);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         IntStream.range(0, SIZE)
-                 .forEach(r -> { IntStream.range(0, SIZE)
-                 .forEach(c -> sb.append(map.get(Location.of(r, c))));
-                     sb.append("\n");
-                 });
+            .forEach(r -> { IntStream.range(0, SIZE)
+            .forEach(c -> sb.append(map.get(Location.of(r, c))));
+                sb.append("\n");
+            });
         return sb.toString();
     }
 }

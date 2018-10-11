@@ -2,8 +2,8 @@ package io.github.liutaurasvilda.gol.core;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class Location {
 
@@ -19,8 +19,8 @@ public final class Location {
         return new Location(r, c);
     }
 
-    long numberOfLivingNeighborsInA(Map<Location, Mutable> map) {
-        List<Location> neighborhood = Arrays.asList(
+    List<Location> neighborhood() {
+        List<Location> distances = Arrays.asList(
                 Location.of(-1, -1),
                 Location.of(-1, 0),
                 Location.of(-1, +1),
@@ -30,11 +30,9 @@ public final class Location {
                 Location.of(+1, 0),
                 Location.of(+1, +1)
         );
-        return neighborhood.stream()
+        return distances.stream()
                 .map(this::neighbor)
-                .map(map::get)
-                .filter(mutable -> mutable.equals(Cell.ALIVE))
-                .count();
+                .collect(Collectors.toList());
     }
 
     private Location neighbor(Location distance) {
