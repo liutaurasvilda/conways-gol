@@ -2,6 +2,7 @@ package io.github.liutaurasvilda.gol.core;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public final class World implements Generation {
@@ -21,7 +22,7 @@ public final class World implements Generation {
     }
 
     public void aliveAt(Location location) {
-        map.put(location, Cell.ALIVE);
+        map.put(Objects.requireNonNull(location), Cell.ALIVE);
     }
 
     public boolean hasPopulation() {
