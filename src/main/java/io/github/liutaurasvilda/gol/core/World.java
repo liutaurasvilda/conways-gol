@@ -3,6 +3,7 @@ package io.github.liutaurasvilda.gol.core;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -22,7 +23,8 @@ public final class World {
                 .mapToObj(row -> IntStream.range(0, SIZE)
                         .mapToObj(column -> Location.of(row, column)))
                 .flatMap(Function.identity())
-                .collect(toMap(Function.identity(), cell -> Cell.EMPTY, (location, cell) -> location, LinkedHashMap::new));
+                .collect(toMap(Function.identity(),
+                        cell -> Cell.EMPTY, (location, cell) -> location, LinkedHashMap::new));
         return new World(emptyWorldMap);
     }
 
@@ -58,11 +60,15 @@ public final class World {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        IntStream.range(0, SIZE)
-                .forEach(r -> {
-                    IntStream.range(0, SIZE)
-                            .forEach(c -> sb.append(worldMap.get(Location.of(r, c))));
-                    sb.append("\n");
+        AtomicInteger counter = new AtomicInteger(1);
+        worldMap.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .forEach(cell -> {
+                    sb.append(cell);
+                    if (counter.getAndIncrement() == SIZE) {
+                        sb.append("\n");
+                        counter.set(1);
+                    }
                 });
         return sb.toString();
     }
