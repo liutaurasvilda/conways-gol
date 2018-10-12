@@ -1,9 +1,8 @@
 package io.github.liutaurasvilda.gol.core;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class Location {
 
@@ -19,10 +18,9 @@ public final class Location {
         return new Location(rowIndex, columnIndex);
     }
 
-    List<Location> neighborhood() {
+    Stream<Location> neighborhood() {
         return Arrays.stream(Direction.values())
-                .map(this::neighbor)
-                .collect(Collectors.toList());
+                .map(this::neighbor);
     }
 
     private Location neighbor(Direction direction) {

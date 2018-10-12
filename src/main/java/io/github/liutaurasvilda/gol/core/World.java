@@ -53,8 +53,10 @@ public final class World {
     }
 
     private long countAt(Location location) {
-        return location.neighborhood().stream()
-                .map(worldMap::get).filter(neighbor -> neighbor.equals(Cell.ALIVE)).count();
+        return location.neighborhood()
+                .map(worldMap::get)
+                .filter(neighbor -> neighbor.equals(Cell.ALIVE))
+                .count();
     }
 
     @Override

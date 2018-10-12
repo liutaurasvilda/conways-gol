@@ -4,7 +4,10 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -43,7 +46,7 @@ public class LocationTest {
 
     @Test
     public void location_neighborhood_identified_correctly() {
-        List<Location> neighborhood = Arrays.asList(
+        Stream<Location> expectedNeighborhood = Stream.of(
                 Location.of(3, 3),
                 Location.of(3, 4),
                 Location.of(3, 5),
@@ -55,6 +58,6 @@ public class LocationTest {
                 Location.of(5, 4),
                 Location.of(5, 5)
         );
-        assertEquals(neighborhood, Location.of(4, 4).neighborhood());
+        assertArrayEquals(expectedNeighborhood.toArray(), Location.of(4, 4).neighborhood().toArray());
     }
 }
