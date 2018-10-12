@@ -20,24 +20,13 @@ public final class Location {
     }
 
     List<Location> neighborhood() {
-        List<Location> distances = Arrays.asList(
-                Location.of(-1, -1),
-                Location.of(-1, 0),
-                Location.of(-1, +1),
-                Location.of(0, -1),
-                Location.of(0, +1),
-                Location.of(+1, -1),
-                Location.of(+1, 0),
-                Location.of(+1, +1)
-        );
-        return distances.stream()
+        return Arrays.stream(Direction.values())
                 .map(this::neighbor)
                 .collect(Collectors.toList());
     }
 
-    private Location neighbor(Location distance) {
-        return Location.of((rowIndex + distance.rowIndex + World.SIZE) % World.SIZE,
-                (columnIndex + distance.columnIndex + World.SIZE) % World.SIZE);
+    private Location neighbor(Direction direction) {
+        return direction.neighborOf(this);
     }
 
     @Override
@@ -52,5 +41,33 @@ public final class Location {
     @Override
     public int hashCode() {
         return Objects.hash(rowIndex, columnIndex);
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "rowIndex=" + rowIndex +
+                ", columnIndex=" + columnIndex +
+                '}';
+    }
+
+    private enum Direction {
+
+        TOP_LEFT(-1, -1),    TOP(-1, 0),    TOP_RIGHT(-1, +1),
+        LEFT(0, -1),                        RIGHT(0, +1),
+        BOTTOM_LEFT(+1, -1), BOTTOM(+1, 0), BOTTOM_RIGHT(+1, +1);
+
+        private final int rowIndex;
+        private final int columnIndex;
+
+        Direction(int rowIndex, int columnIndex) {
+            this.rowIndex = rowIndex;
+            this.columnIndex = columnIndex;
+        }
+
+        Location neighborOf(Location location) {
+            return Location.of((location.rowIndex + rowIndex + World.SIZE) % World.SIZE,
+                    (location.columnIndex + columnIndex + World.SIZE) % World.SIZE);
+        }
     }
 }

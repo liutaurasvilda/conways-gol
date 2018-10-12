@@ -47,8 +47,10 @@ public class LocationTest {
                 Location.of(3, 3),
                 Location.of(3, 4),
                 Location.of(3, 5),
+
                 Location.of(4, 3),
                 Location.of(4, 5),
+
                 Location.of(5, 3),
                 Location.of(5, 4),
                 Location.of(5, 5)
