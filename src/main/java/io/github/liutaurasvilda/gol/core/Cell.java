@@ -12,6 +12,6 @@ enum Cell implements Mutable {
 
     @Override
     public String toString() {
-        return this.symbol;
+        return symbol;
     }
 }
