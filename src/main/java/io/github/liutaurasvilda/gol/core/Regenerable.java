@@ -3,9 +3,9 @@ package io.github.liutaurasvilda.gol.core;
 import java.util.Objects;
 import java.util.function.Function;
 
-interface Mutable {
+interface Regenerable {
 
-    default Mutable mutate(Function<Mutable, Mutable> f) {
+    default Regenerable regenerate(Function<Regenerable, Regenerable> f) {
         return Objects.requireNonNull(f).apply(this);
     }
 }

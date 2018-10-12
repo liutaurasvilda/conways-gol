@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol.core;
 
-enum Cell implements Mutable {
+enum Cell implements Regenerable {
 
     ALIVE("0"), EMPTY(".");
 

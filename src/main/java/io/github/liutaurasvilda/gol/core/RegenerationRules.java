@@ -2,9 +2,9 @@ package io.github.liutaurasvilda.gol.core;
 
 import java.util.function.Function;
 
-final class MutationRules {
+final class RegenerationRules {
 
-    private MutationRules() {
+    private RegenerationRules() {
     }
 
     static final class Builder {
@@ -19,12 +19,12 @@ final class MutationRules {
             return this;
         }
 
-        Function<Mutable, Mutable> build() {
-            return mutable -> {
-                if (mutable.equals(Cell.ALIVE)) {
+        Function<Regenerable, Regenerable> build() {
+            return regenerable -> {
+                if (regenerable.equals(Cell.ALIVE)) {
                     if (livingNeighbors == 2) return Cell.ALIVE;
                     if (livingNeighbors == 3) return Cell.ALIVE;
-                } else if (mutable.equals(Cell.EMPTY)) {
+                } else if (regenerable.equals(Cell.EMPTY)) {
                     if (livingNeighbors == 3) return Cell.ALIVE;
                 }
                 return Cell.EMPTY;

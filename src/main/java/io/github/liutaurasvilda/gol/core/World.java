@@ -12,19 +12,19 @@ import static java.util.stream.Collectors.*;
 public final class World {
 
     static final int SIZE = 10;
-    private final Map<Location, Mutable> worldMap;
+    private final Map<Location, Regenerable> worldMap;
 
-    private World(Map<Location, Mutable> worldMap) {
+    private World(Map<Location, Regenerable> worldMap) {
         this.worldMap = worldMap;
     }
 
     public static World empty() {
-        Map<Location, Mutable> emptyWorldMap = IntStream.range(0, SIZE)
-                .mapToObj(row -> IntStream.range(0, SIZE)
-                        .mapToObj(column -> Location.of(row, column)))
+        Map<Location, Regenerable> emptyWorldMap = IntStream.range(0, SIZE)
+                .mapToObj(rowIndex -> IntStream.range(0, SIZE)
+                        .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .collect(toMap(Function.identity(),
-                        cell -> Cell.EMPTY, (location, cell) -> location, LinkedHashMap::new));
+                        regenerable -> Cell.EMPTY, (location, regenerable) -> location, LinkedHashMap::new));
         return new World(emptyWorldMap);
     }
 
@@ -35,20 +35,20 @@ public final class World {
     public boolean hasPopulation() {
         return worldMap.entrySet().stream()
                 .map(Map.Entry::getValue)
-                .anyMatch(cell -> !cell.equals(Cell.EMPTY));
+                .anyMatch(regenerable -> !regenerable.equals(Cell.EMPTY));
     }
 
     public World nextGeneration() {
-        MutationRules.Builder rules = new MutationRules.Builder();
-        Map<Location, Mutable> newWorldMap = worldMap.entrySet().stream()
+        RegenerationRules.Builder rules = new RegenerationRules.Builder();
+        Map<Location, Regenerable> newWorldMap = worldMap.entrySet().stream()
                 .map(Map.Entry::getKey)
                 .collect(toMap(Function.identity(),
-                        location -> mutableAt(location).mutate(rules.withLivingNeighbors(countAt(location)).build()),
-                        (location, cell) -> location, LinkedHashMap::new));
+                        location -> mutableAt(location).regenerate(rules.withLivingNeighbors(countAt(location)).build()),
+                        (location, regenerable) -> location, LinkedHashMap::new));
         return new World(newWorldMap);
     }
 
-    private Mutable mutableAt(Location location) {
+    private Regenerable mutableAt(Location location) {
         return worldMap.get(location);
     }
 
@@ -63,8 +63,8 @@ public final class World {
         AtomicInteger counter = new AtomicInteger(1);
         worldMap.entrySet().stream()
                 .map(Map.Entry::getValue)
-                .forEach(cell -> {
-                    sb.append(cell);
+                .forEach(regenerable -> {
+                    sb.append(regenerable);
                     if (counter.getAndIncrement() == SIZE) {
                         sb.append("\n");
                         counter.set(1);

@@ -6,9 +6,9 @@ import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
-public class MutationRulesTest {
+public class RegenerationRulesTest {
 
-    private final MutationRules.Builder rules = new MutationRules.Builder();
+    private final RegenerationRules.Builder rules = new RegenerationRules.Builder();
 
     @Test
     public void rules_with_less_than_two_alive_neighbors_applied_to_alive_cell_returns_empty_cell() {
@@ -47,9 +47,9 @@ public class MutationRulesTest {
 
     @Test
     public void rules_applied_to_other_than_alive_or_empty_cell_returns_empty_cell() {
-        assertEquals(Cell.EMPTY, rules.withLivingNeighbors(0).build().apply(new Mutable() {
+        assertEquals(Cell.EMPTY, rules.withLivingNeighbors(0).build().apply(new Regenerable() {
             @Override
-            public Mutable mutate(Function<Mutable, Mutable> f) {
+            public Regenerable regenerate(Function<Regenerable, Regenerable> f) {
                 return this;
             }
         }));
