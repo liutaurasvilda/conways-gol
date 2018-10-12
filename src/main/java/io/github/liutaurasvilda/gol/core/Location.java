@@ -43,14 +43,6 @@ public final class Location {
         return Objects.hash(rowIndex, columnIndex);
     }
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "rowIndex=" + rowIndex +
-                ", columnIndex=" + columnIndex +
-                '}';
-    }
-
     private enum Direction {
 
         TOP_LEFT(-1, -1),    TOP(-1, 0),    TOP_RIGHT(-1, +1),
