@@ -54,7 +54,7 @@ public class CellTest {
     }
 
     @Test
-    public void live_cell_toString() {
+    public void alive_cell_toString() {
         assertEquals("0", Cell.ALIVE.toString());
     }
 
