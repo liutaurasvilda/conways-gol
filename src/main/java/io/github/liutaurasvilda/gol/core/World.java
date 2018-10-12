@@ -13,20 +13,17 @@ public final class World {
     static final int SIZE = 10;
     private final Map<Location, Mutable> map;
 
-    private World() {
-        this.map = IntStream.range(0, SIZE)
-                .mapToObj(row -> IntStream.range(0, SIZE)
-                        .mapToObj(column -> Location.of(row, column)))
-                .flatMap(Function.identity())
-                .collect(toMap(Function.identity(), cell -> Cell.EMPTY, (location, cell) -> location, LinkedHashMap::new));
-    }
-
     private World(Map<Location, Mutable> map) {
         this.map = map;
     }
 
     public static World empty() {
-        return new World();
+        Map<Location, Mutable> emptyMap = IntStream.range(0, SIZE)
+                .mapToObj(row -> IntStream.range(0, SIZE)
+                        .mapToObj(column -> Location.of(row, column)))
+                .flatMap(Function.identity())
+                .collect(toMap(Function.identity(), cell -> Cell.EMPTY, (location, cell) -> location, LinkedHashMap::new));
+        return new World(emptyMap);
     }
 
     public void aliveAt(Location location) {
