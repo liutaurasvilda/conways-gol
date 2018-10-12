@@ -11,48 +11,48 @@ import static java.util.stream.Collectors.*;
 public final class World {
 
     static final int SIZE = 10;
-    private final Map<Location, Mutable> map;
+    private final Map<Location, Mutable> worldMap;
 
-    private World(Map<Location, Mutable> map) {
-        this.map = map;
+    private World(Map<Location, Mutable> worldMap) {
+        this.worldMap = worldMap;
     }
 
     public static World empty() {
-        Map<Location, Mutable> emptyMap = IntStream.range(0, SIZE)
+        Map<Location, Mutable> emptyWorldMap = IntStream.range(0, SIZE)
                 .mapToObj(row -> IntStream.range(0, SIZE)
                         .mapToObj(column -> Location.of(row, column)))
                 .flatMap(Function.identity())
                 .collect(toMap(Function.identity(), cell -> Cell.EMPTY, (location, cell) -> location, LinkedHashMap::new));
-        return new World(emptyMap);
+        return new World(emptyWorldMap);
     }
 
     public void aliveAt(Location location) {
-        map.put(Objects.requireNonNull(location), Cell.ALIVE);
+        worldMap.put(Objects.requireNonNull(location), Cell.ALIVE);
     }
 
     public boolean hasPopulation() {
-        return map.entrySet().stream()
+        return worldMap.entrySet().stream()
                 .map(Map.Entry::getValue)
                 .anyMatch(cell -> !cell.equals(Cell.EMPTY));
     }
 
     public World nextGeneration() {
         MutationRules.Builder rules = new MutationRules.Builder();
-        Map<Location, Mutable> newMap = map.entrySet().stream()
+        Map<Location, Mutable> newWorldMap = worldMap.entrySet().stream()
                 .map(Map.Entry::getKey)
                 .collect(toMap(Function.identity(),
                         location -> mutableAt(location).mutate(rules.withLivingNeighbors(countAt(location)).build()),
                         (location, cell) -> location, LinkedHashMap::new));
-        return new World(newMap);
+        return new World(newWorldMap);
     }
 
     private long countAt(Location location) {
         return location.neighborhood().stream()
-                .map(map::get).filter(neighbor -> neighbor.equals(Cell.ALIVE)).count();
+                .map(worldMap::get).filter(neighbor -> neighbor.equals(Cell.ALIVE)).count();
     }
 
     private Mutable mutableAt(Location location) {
-        return map.get(location);
+        return worldMap.get(location);
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class World {
         IntStream.range(0, SIZE)
                 .forEach(r -> {
                     IntStream.range(0, SIZE)
-                            .forEach(c -> sb.append(map.get(Location.of(r, c))));
+                            .forEach(c -> sb.append(worldMap.get(Location.of(r, c))));
                     sb.append("\n");
                 });
         return sb.toString();
