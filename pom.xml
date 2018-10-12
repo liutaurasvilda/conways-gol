@@ -17,6 +17,7 @@
 
     <modules>
         <module>core-lib</module>
+        <module>ui</module>
     </modules>
 
     <dependencies>
