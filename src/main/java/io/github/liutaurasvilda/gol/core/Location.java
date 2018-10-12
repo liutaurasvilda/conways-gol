@@ -7,16 +7,16 @@ import java.util.stream.Collectors;
 
 public final class Location {
 
-    private final int r;
-    private final int c;
+    private final int rowIndex;
+    private final int columnIndex;
 
-    private Location(int r, int c) {
-        this.r = r;
-        this.c = c;
+    private Location(int rowIndex, int columnIndex) {
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
     }
 
-    public static Location of(int r, int c) {
-        return new Location(r, c);
+    public static Location of(int rowIndex, int columnIndex) {
+        return new Location(rowIndex, columnIndex);
     }
 
     List<Location> neighborhood() {
@@ -36,8 +36,8 @@ public final class Location {
     }
 
     private Location neighbor(Location distance) {
-        return Location.of((r + distance.r + World.SIZE) % World.SIZE,
-                (c + distance.c + World.SIZE) % World.SIZE);
+        return Location.of((rowIndex + distance.rowIndex + World.SIZE) % World.SIZE,
+                (columnIndex + distance.columnIndex + World.SIZE) % World.SIZE);
     }
 
     @Override
@@ -45,12 +45,12 @@ public final class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return r == location.r &&
-                c == location.c;
+        return rowIndex == location.rowIndex &&
+                columnIndex == location.columnIndex;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(r, c);
+        return Objects.hash(rowIndex, columnIndex);
     }
 }
