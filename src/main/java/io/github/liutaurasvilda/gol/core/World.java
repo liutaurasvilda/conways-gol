@@ -48,13 +48,13 @@ public final class World {
         return new World(newWorldMap);
     }
 
+    private Mutable mutableAt(Location location) {
+        return worldMap.get(location);
+    }
+
     private long countAt(Location location) {
         return location.neighborhood().stream()
                 .map(worldMap::get).filter(neighbor -> neighbor.equals(Cell.ALIVE)).count();
-    }
-
-    private Mutable mutableAt(Location location) {
-        return worldMap.get(location);
     }
 
     @Override
