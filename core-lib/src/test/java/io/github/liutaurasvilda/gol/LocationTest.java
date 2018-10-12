@@ -1,15 +1,10 @@
-package io.github.liutaurasvilda.gol.core;
+package io.github.liutaurasvilda.gol;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class LocationTest {
 

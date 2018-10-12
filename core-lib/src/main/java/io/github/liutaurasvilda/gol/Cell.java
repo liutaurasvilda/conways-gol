@@ -1,4 +1,4 @@
-package io.github.liutaurasvilda.gol.core;
+package io.github.liutaurasvilda.gol;
 
 enum Cell implements Regenerable {
 
