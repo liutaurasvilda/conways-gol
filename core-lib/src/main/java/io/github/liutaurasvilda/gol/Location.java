@@ -55,6 +55,7 @@ public final class Location {
             this.columnIndex = columnIndex;
         }
 
+        // TODO think of handling location outside World.SIZE
         private Location neighborOf(Location location) {
             return Location.of((location.rowIndex + rowIndex + World.SIZE) % World.SIZE,
                     (location.columnIndex + columnIndex + World.SIZE) % World.SIZE);
