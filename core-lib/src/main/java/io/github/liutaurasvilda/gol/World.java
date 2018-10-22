@@ -28,7 +28,6 @@ public final class World {
         return new World(emptyWorldMap);
     }
 
-    // Test
     public void aliveAt(Location location) {
         worldMap.put(Objects.requireNonNull(location), Cell.ALIVE);
     }
