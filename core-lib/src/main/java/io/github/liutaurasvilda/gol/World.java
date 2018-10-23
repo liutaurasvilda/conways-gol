@@ -43,7 +43,6 @@ public final class World {
         Map<Location, Regenerable> newWorldMap = worldMap.entrySet().stream()
                 .map(Map.Entry::getKey)
                 .collect(toMap(Function.identity(),
-                        // TODO think about calling Function<Regenerable, Regenerable> only
                         location -> mutableAt(location).regenerate(rules.withLivingNeighbors(countAt(location)).build()),
                         (location, regenerable) -> location, LinkedHashMap::new));
         return new World(newWorldMap);
