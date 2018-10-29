@@ -20,14 +20,15 @@ final class RegenerationRules {
         }
 
         Function<Regenerable, Regenerable> build() {
-            return regenerable -> {
-                if (regenerable.equals(Cell.ALIVE)) {
-                    if (livingNeighbors == 2) return Cell.ALIVE;
-                    if (livingNeighbors == 3) return Cell.ALIVE;
-                } else if (regenerable.equals(Cell.EMPTY)) {
-                    if (livingNeighbors == 3) return Cell.ALIVE;
+            return r -> {
+                Regenerable regenerable = null;
+                if (Cell.ALIVE.equals(r)) {
+                    if (livingNeighbors == 2) regenerable = r;
+                    if (livingNeighbors == 3) regenerable = r;
+                } else if (livingNeighbors == 3) {
+                    regenerable = Cell.ALIVE;
                 }
-                return Cell.EMPTY;
+                return regenerable;
             };
         }
     }

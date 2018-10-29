@@ -1,13 +1,11 @@
 package io.github.liutaurasvilda.gol;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.IntStream;
+import java.util.AbstractMap.SimpleEntry;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toMap;
 
 public final class World {
 
@@ -19,13 +17,7 @@ public final class World {
     }
 
     public static World empty() {
-        Map<Location, Regenerable> emptyWorldMap = IntStream.range(0, SIZE)
-                .mapToObj(rowIndex -> IntStream.range(0, SIZE)
-                        .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
-                .flatMap(Function.identity())
-                .collect(toMap(Function.identity(),
-                        regenerable -> Cell.EMPTY, (location, regenerable) -> location, LinkedHashMap::new));
-        return new World(emptyWorldMap);
+        return new World(new HashMap<>());
     }
 
     public void aliveAt(Location location) {
@@ -33,22 +25,23 @@ public final class World {
     }
 
     public boolean hasPopulation() {
-        return worldMap.entrySet().stream()
-                .map(Map.Entry::getValue)
-                .anyMatch(regenerable -> !regenerable.equals(Cell.EMPTY));
+        return !worldMap.isEmpty();
     }
 
     public World nextGeneration() {
         RegenerationRules.Builder rules = new RegenerationRules.Builder();
-        Map<Location, Regenerable> newWorldMap = worldMap.entrySet().stream()
-                .map(Map.Entry::getKey)
-                .collect(toMap(Function.identity(),
-                        location -> rules.withLivingNeighbors(numberOfLivingNeighborsAt(location)).build().apply(mutableAt(location)),
-                        (location, regenerable) -> location, LinkedHashMap::new));
+        Map<Location, Regenerable> newWorldMap = IntStream.range(0, SIZE)
+                .mapToObj(rowIndex -> IntStream.range(0, SIZE)
+                        .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
+                .flatMap(Function.identity())
+                .map(location -> new SimpleEntry<>(location,
+                        rules.withLivingNeighbors(numberOfLivingNeighborsAt(location)).build().apply(regenerableAt(location))))
+                .filter(e -> e.getValue() != null)
+                .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap);
     }
 
-    private Regenerable mutableAt(Location location) {
+    private Regenerable regenerableAt(Location location) {
         return worldMap.get(location);
     }
 
@@ -62,16 +55,12 @@ public final class World {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        AtomicInteger counter = new AtomicInteger(1);
-        worldMap.entrySet().stream()
-                .map(Map.Entry::getValue)
-                .forEach(regenerable -> {
-                    sb.append(regenerable.equals(Cell.ALIVE) ? "0" : ".");
-                    if (counter.getAndIncrement() == SIZE) {
-                        sb.append("\n");
-                        counter.set(1);
-                    }
-                });
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                sb.append(Cell.ALIVE.equals(worldMap.get(Location.of(i, j))) ? "0" : ".");
+            }
+            sb.append("\n");
+        }
         return sb.toString();
     }
 }
