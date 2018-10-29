@@ -66,7 +66,7 @@ public final class World {
         worldMap.entrySet().stream()
                 .map(Map.Entry::getValue)
                 .forEach(regenerable -> {
-                    sb.append(regenerable);
+                    sb.append(regenerable.equals(Cell.ALIVE) ? "0" : ".");
                     if (counter.getAndIncrement() == SIZE) {
                         sb.append("\n");
                         counter.set(1);
