@@ -43,7 +43,7 @@ public final class World {
         Map<Location, Regenerable> newWorldMap = worldMap.entrySet().stream()
                 .map(Map.Entry::getKey)
                 .collect(toMap(Function.identity(),
-                        location -> rules.withLivingNeighbors(countAt(location)).build().apply(mutableAt(location)),
+                        location -> rules.withLivingNeighbors(numberOfLivingNeighborsAt(location)).build().apply(mutableAt(location)),
                         (location, regenerable) -> location, LinkedHashMap::new));
         return new World(newWorldMap);
     }
@@ -52,10 +52,10 @@ public final class World {
         return worldMap.get(location);
     }
 
-    private long countAt(Location location) {
+    private long numberOfLivingNeighborsAt(Location location) {
         return location.neighborhood()
                 .map(worldMap::get)
-                .filter(neighbor -> neighbor.equals(Cell.ALIVE))
+                .filter(Cell.ALIVE::equals)
                 .count();
     }
 
