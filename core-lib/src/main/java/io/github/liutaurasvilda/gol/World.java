@@ -58,7 +58,7 @@ public final class World {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                sb.append(Cell.ALIVE.equals(worldMap.get(Location.of(i, j))) ? "0" : ".");
+                sb.append(Cell.ALIVE.equals(regenerableAt(Location.of(i, j))) ? "0" : ".");
             }
             sb.append("\n");
         }
