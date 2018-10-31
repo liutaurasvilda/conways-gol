@@ -21,7 +21,11 @@ public final class World {
     }
 
     public void aliveAt(Location location) {
-        worldMap.put(Objects.requireNonNull(location), Cell.ALIVE);
+        worldMap.put(Objects.requireNonNull(
+                worldWrapped(Location.of(
+                        Math.abs(location.rowIndex()),
+                        Math.abs(location.columnIndex())))),
+                Cell.ALIVE);
     }
 
     public boolean hasPopulation() {
