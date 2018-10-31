@@ -18,6 +18,14 @@ public final class Location {
         return new Location(rowIndex, columnIndex);
     }
 
+    int rowIndex() {
+        return rowIndex;
+    }
+
+    int columnIndex() {
+        return columnIndex;
+    }
+
     Stream<Location> neighborhood() {
         return Arrays.stream(Direction.values())
                 .map(this::neighbor);
@@ -56,8 +64,8 @@ public final class Location {
         }
 
         private Location neighborOf(Location location) {
-            return Location.of((location.rowIndex + rowIndex + World.SIZE) % World.SIZE,
-                    (location.columnIndex + columnIndex + World.SIZE) % World.SIZE);
+            return Location.of(location.rowIndex + rowIndex,
+                    location.columnIndex + columnIndex);
         }
     }
 }

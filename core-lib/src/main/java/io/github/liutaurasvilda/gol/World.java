@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.toMap;
 
 public final class World {
 
-    static final int SIZE = 10;
+    private final int size = 10;
 
     private final Map<Location, Regenerable> worldMap;
 
@@ -31,8 +31,8 @@ public final class World {
 
     public World nextGeneration() {
         RegenerationRules.Builder rules = new RegenerationRules.Builder();
-        Map<Location, Regenerable> newWorldMap = IntStream.range(0, SIZE)
-                .mapToObj(rowIndex -> IntStream.range(0, SIZE)
+        Map<Location, Regenerable> newWorldMap = IntStream.range(0, size)
+                .mapToObj(rowIndex -> IntStream.range(0, size)
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
@@ -48,16 +48,21 @@ public final class World {
 
     private long numberOfLivingNeighborsAt(Location location) {
         return location.neighborhood()
-                .map(worldMap::get)
+                .map(neighbor -> worldMap.get(worldWrapped(neighbor)))
                 .filter(Cell.ALIVE::equals)
                 .count();
+    }
+
+    private Location worldWrapped(Location location) {
+        return Location.of((location.rowIndex() + size) % size,
+                (location.columnIndex() + size) % size);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 sb.append(Cell.ALIVE.equals(regenerableAt(Location.of(i, j))) ? "0" : ".");
             }
             sb.append("\n");
