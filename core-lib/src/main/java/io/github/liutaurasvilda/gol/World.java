@@ -10,7 +10,6 @@ import static java.util.stream.Collectors.toMap;
 public final class World {
 
     private final int size = 10;
-
     private final Map<Location, Regenerable> worldMap;
 
     private World(Map<Location, Regenerable> worldMap) {
