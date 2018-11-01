@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.toMap;
 
 public final class World {
 
-    private final static int DEFAULT_SIZE = 10;
+    private static final int DEFAULT_SIZE = 10;
 
     private final Map<Location, Regenerable> worldMap;
     private int size;
