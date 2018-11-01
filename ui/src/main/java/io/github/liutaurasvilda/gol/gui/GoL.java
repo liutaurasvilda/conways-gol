@@ -50,20 +50,33 @@ final class GoL {
 
         ActionListener worldGenerationListener = e -> {
             if (world.hasPopulation()) {
-                String[] w = world.toString().replace("\n", "").split("");
-                for (int i = 0; i < rows * columns; i++) {
-                    JButton button = (JButton)panel.getComponent(i);
-                    if (w[i].equals("0")) {
-                        button.setBackground(Color.ORANGE);
-                    } else {
-                        button.setBackground(Color.GRAY);
-                    }
-                }
+                populateWithAliveCells(rows, columns, panel);
                 world = world.nextGeneration();
+            } else {
+                populateWithEmptyCells(rows, columns, panel);
             }
         };
         Timer t = new Timer(100, worldGenerationListener);
         t.setInitialDelay(0);
         t.start();
+    }
+
+    private void populateWithAliveCells(int rows, int columns, JPanel panel) {
+        String[] w = world.toString().replace("\n", "").split("");
+        for (int i = 0; i < rows * columns; i++) {
+            JButton button = (JButton)panel.getComponent(i);
+            if (w[i].equals("0")) {
+                button.setBackground(Color.ORANGE);
+            } else {
+                button.setBackground(Color.GRAY);
+            }
+        }
+    }
+
+    private void populateWithEmptyCells(int rows, int columns, JPanel panel) {
+        for (int i = 0; i < rows * columns; i++) {
+            JButton button = (JButton)panel.getComponent(i);
+            button.setBackground(Color.GRAY);
+        }
     }
 }

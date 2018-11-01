@@ -20,5 +20,6 @@ final class GoL {
             System.out.println(world);
             world = world.nextGeneration();
         }
+        System.out.println(world);
     }
 }
