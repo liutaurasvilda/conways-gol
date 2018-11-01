@@ -31,29 +31,20 @@ final class GoL {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        int rows = world.getSize();
-        int columns = world.getSize();
-
-        JPanel panel = new JPanel(new GridLayout(rows, columns));
+        JPanel panel = new JPanel(new GridLayout(world.getSize(), world.getSize()));
         frame.add(panel);
 
-        for (int i = 0; i < rows * columns; i++) {
-            JButton button = new JButton();
-            button.setPreferredSize(new Dimension(20, 20));
-            button.setBackground(Color.GRAY);
-            button.setOpaque(true);
-            panel.add(button);
-        }
+        fillWithButtons(panel);
 
         frame.pack();
         frame.setVisible(true);
 
         ActionListener worldGenerationListener = e -> {
             if (world.hasPopulation()) {
-                populateWithAliveCells(rows, columns, panel);
+                populateWithAliveCells(panel);
                 world = world.nextGeneration();
             } else {
-                populateWithEmptyCells(rows, columns, panel);
+                populateWithEmptyCells(panel);
             }
         };
         Timer t = new Timer(100, worldGenerationListener);
@@ -61,11 +52,21 @@ final class GoL {
         t.start();
     }
 
-    private void populateWithAliveCells(int rows, int columns, JPanel panel) {
-        String[] w = world.toString().replace("\n", "").split("");
-        for (int i = 0; i < rows * columns; i++) {
+    private void fillWithButtons(JPanel panel) {
+        for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(20, 20));
+            button.setBackground(Color.GRAY);
+            button.setOpaque(true);
+            panel.add(button);
+        }
+    }
+
+    private void populateWithAliveCells(JPanel panel) {
+        String[] cells = world.toString().replace("\n", "").split("");
+        for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
             JButton button = (JButton)panel.getComponent(i);
-            if (w[i].equals("0")) {
+            if (cells[i].equals("0")) {
                 button.setBackground(Color.ORANGE);
             } else {
                 button.setBackground(Color.GRAY);
@@ -73,8 +74,8 @@ final class GoL {
         }
     }
 
-    private void populateWithEmptyCells(int rows, int columns, JPanel panel) {
-        for (int i = 0; i < rows * columns; i++) {
+    private void populateWithEmptyCells(JPanel panel) {
+        for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
             JButton button = (JButton)panel.getComponent(i);
             button.setBackground(Color.GRAY);
         }
