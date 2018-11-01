@@ -27,6 +27,7 @@ final class GoL {
     }
 
     private void buildGUI() {
+        supportMacOSX();
         JFrame frame = new JFrame("Conway's Game of Life 1.0");
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +51,17 @@ final class GoL {
         Timer t = new Timer(100, worldGenerationListener);
         t.setInitialDelay(0);
         t.start();
+    }
+
+    private void supportMacOSX() {
+        if ("Mac OS X".equals(System.getProperty("os.name"))) {
+            try {
+                UIManager.setLookAndFeel(
+                        UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void fillWithButtons(JPanel panel) {
