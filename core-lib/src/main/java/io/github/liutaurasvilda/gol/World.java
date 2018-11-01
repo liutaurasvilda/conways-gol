@@ -9,15 +9,28 @@ import static java.util.stream.Collectors.toMap;
 
 public final class World {
 
-    private final int size = 10;
-    private final Map<Location, Regenerable> worldMap;
+    private final static int DEFAULT_SIZE = 10;
 
-    private World(Map<Location, Regenerable> worldMap) {
+    private final Map<Location, Regenerable> worldMap;
+    private int size;
+
+    private World(Map<Location, Regenerable> worldMap, int size) {
         this.worldMap = worldMap;
+        this.size = size;
     }
 
     public static World empty() {
-        return new World(new HashMap<>());
+        return new World(new HashMap<>(), DEFAULT_SIZE);
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        if (size > DEFAULT_SIZE) {
+            this.size = size;
+        }
     }
 
     public void aliveAt(Location location) {
@@ -42,7 +55,7 @@ public final class World {
                         rules.withLivingNeighbors(numberOfLivingNeighborsAt(location)).build().apply(regenerableAt(location))))
                 .filter(e -> e.getValue() != null)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
-        return new World(newWorldMap);
+        return new World(newWorldMap, this.size);
     }
 
     private Regenerable regenerableAt(Location location) {

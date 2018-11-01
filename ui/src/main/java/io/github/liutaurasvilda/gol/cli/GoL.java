@@ -3,16 +3,13 @@ package io.github.liutaurasvilda.gol.cli;
 import io.github.liutaurasvilda.gol.Location;
 import io.github.liutaurasvilda.gol.World;
 
-final class CLILauncher {
+final class GoL {
 
-    private CLILauncher() {
+    GoL() {
+        play();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
-
-    private static void launch() {
+    private void play() {
         World world = World.empty();
         world.aliveAt(Location.of(4, 5));
         world.aliveAt(Location.of(5, 6));
