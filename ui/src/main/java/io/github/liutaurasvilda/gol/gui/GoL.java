@@ -48,7 +48,7 @@ final class GoL {
         frame.pack();
         frame.setVisible(true);
 
-        ActionListener worldGenerationsListener = e -> {
+        ActionListener worldGenerationListener = e -> {
             if (world.hasPopulation()) {
                 String[] w = world.toString().replace("\n", "").split("");
                 for (int i = 0; i < rows * columns; i++) {
@@ -62,7 +62,7 @@ final class GoL {
                 world = world.nextGeneration();
             }
         };
-        Timer t = new Timer(100, worldGenerationsListener);
+        Timer t = new Timer(100, worldGenerationListener);
         t.setInitialDelay(0);
         t.start();
     }
