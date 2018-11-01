@@ -50,6 +50,26 @@ public class WorldTest {
     }
 
     @Test
+    public void empty_world_has_size_of_ten() {
+        World world = World.empty();
+        assertEquals(10, world.getSize());
+    }
+
+    @Test
+    public void world_with_size_set_less_than_ten_has_size_ten() {
+        World world = World.empty();
+        world.setSize(9);
+        assertEquals(10, world.getSize());
+    }
+
+    @Test
+    public void world_with_size_set_twenty_has_size_twenty() {
+        World world = World.empty();
+        world.setSize(20);
+        assertEquals(20, world.getSize());
+    }
+
+    @Test
     public void world_toString() {
         String expected =
                 "..........\n" +
