@@ -6,6 +6,7 @@ enum Cell {
 
     ALIVE;
 
+    /* currentCell can be either ALIVE or unpopulated (null) */
     static BiFunction<Cell, Long, Cell> regenerationRules() {
         return (currentCell, numberOfLivingNeighbors) -> {
             Cell newCell = null;
