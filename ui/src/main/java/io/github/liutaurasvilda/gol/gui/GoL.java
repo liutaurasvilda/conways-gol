@@ -18,7 +18,7 @@ final class GoL {
 
     private void buildWorld() {
         world = World.empty();
-        world.setSize(50);
+        world.setSize(30);
         world.aliveAt(Location.of(4, 5));
         world.aliveAt(Location.of(5, 6));
         world.aliveAt(Location.of(6, 4));
