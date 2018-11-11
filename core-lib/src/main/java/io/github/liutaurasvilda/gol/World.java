@@ -46,13 +46,12 @@ public final class World {
     }
 
     public World nextGeneration() {
-        RegenerationRules.Builder rules = new RegenerationRules.Builder();
         Map<Location, Cell> newWorldMap = IntStream.range(0, size)
                 .mapToObj(rowIndex -> IntStream.range(0, size)
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        rules.withLivingNeighbors(numberOfLivingNeighborsAt(location)).build().apply(cellAt(location))))
+                        Cell.regenerationRules().apply(cellAt(location), numberOfLivingNeighborsAt(location))))
                 .filter(e -> e.getValue() != null)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
