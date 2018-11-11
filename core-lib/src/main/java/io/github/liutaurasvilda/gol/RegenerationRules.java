@@ -19,16 +19,16 @@ final class RegenerationRules {
             return this;
         }
 
-        Function<Regenerable, Regenerable> build() {
-            return r -> {
-                Regenerable regenerable = null;
-                if (Cell.ALIVE.equals(r)) {
-                    if (livingNeighbors == 2) regenerable = r;
-                    if (livingNeighbors == 3) regenerable = r;
+        Function<Cell, Cell> build() {
+            return c -> {
+                Cell cell = null;
+                if (Cell.ALIVE.equals(c)) {
+                    if (livingNeighbors == 2) cell = c;
+                    if (livingNeighbors == 3) cell = c;
                 } else if (livingNeighbors == 3) {
-                    regenerable = Cell.ALIVE;
+                    cell = Cell.ALIVE;
                 }
-                return regenerable;
+                return cell;
             };
         }
     }

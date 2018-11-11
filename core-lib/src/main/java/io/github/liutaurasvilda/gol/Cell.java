@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol;
 
-enum Cell implements Regenerable {
+enum Cell {
 
     ALIVE
 }
