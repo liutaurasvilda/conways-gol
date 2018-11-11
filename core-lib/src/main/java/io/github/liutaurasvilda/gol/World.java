@@ -54,7 +54,7 @@ public final class World {
                         Cell.regenerationRules().apply(cellAt(location), numberOfLivingNeighborsAround(location))))
                 .filter(e -> e.getValue() != null)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
-        return new World(newWorldMap, this.size);
+        return new World(newWorldMap, size);
     }
 
     private Cell cellAt(Location location) {
