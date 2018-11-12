@@ -6,7 +6,7 @@ enum Cell {
 
     ALIVE;
 
-    static BiFunction<Boolean, Long, Cell> regeneration() {
+    static BiFunction<Boolean, Long, Cell> regenerate() {
         return (isAlive, numberOfLivingNeighbors) -> {
             Cell cell = null;
             if (isAlive) {

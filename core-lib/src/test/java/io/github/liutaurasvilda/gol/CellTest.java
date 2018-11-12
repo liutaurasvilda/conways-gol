@@ -8,21 +8,21 @@ public class CellTest {
 
     @Test
     public void alive_cell_with_two_alive_neighbors_regenerates_to_alive_cell() {
-        assertEquals(Cell.ALIVE, Cell.regeneration().apply(true, 2L));
+        assertEquals(Cell.ALIVE, Cell.regenerate().apply(true, 2L));
     }
 
     @Test
     public void alive_cell_with_three_alive_neighbors_regenerates_to_alive_cell() {
-        assertEquals(Cell.ALIVE, Cell.regeneration().apply(true, 3L));
+        assertEquals(Cell.ALIVE, Cell.regenerate().apply(true, 3L));
     }
 
     @Test
     public void unpopulated_cell_with_three_alive_neighbors_regenerates_to_alive_cell() {
-        assertEquals(Cell.ALIVE, Cell.regeneration().apply(false, 3L));
+        assertEquals(Cell.ALIVE, Cell.regenerate().apply(false, 3L));
     }
 
     @Test
     public void alive_cell_with_one_alive_neighbor_becomes_unpopulated() {
-        assertNull(Cell.regeneration().apply(true, 1L));
+        assertNull(Cell.regenerate().apply(true, 1L));
     }
 }
