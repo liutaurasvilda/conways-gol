@@ -58,7 +58,8 @@ final class GoL {
             try {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            } catch (ClassNotFoundException | InstantiationException |
+                    IllegalAccessException | UnsupportedLookAndFeelException e) {
                 e.printStackTrace();
             }
         }
