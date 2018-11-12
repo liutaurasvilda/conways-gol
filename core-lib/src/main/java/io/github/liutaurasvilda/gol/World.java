@@ -51,7 +51,7 @@ public final class World {
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        Cell.regenerate().apply(isAliveAt(location), numberOfLivingNeighborsAround(location))))
+                        Cell.regeneration().apply(isAliveAt(location), numberOfLivingNeighborsAround(location))))
                 .filter(e -> e.getValue() != null)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, size);
