@@ -51,18 +51,18 @@ public final class World {
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        Cell.regeneration().apply(isAliveAt(location), numberOfLivingNeighborsAround(location))))
+                        Cell.regeneration().apply(cellAt(location), numberOfLivingNeighborsAround(location))))
                 .filter(e -> e.getValue() != null)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, size);
     }
 
-    private boolean isAliveAt(Location location) {
-        return Cell.ALIVE.equals(worldMap.get(location));
+    private Cell cellAt(Location location) {
+        return worldMap.get(location);
     }
 
-    private long numberOfLivingNeighborsAround(Location location) {
-        return location.neighborhood()
+    private int numberOfLivingNeighborsAround(Location location) {
+        return (int)location.neighborhood()
                 .map(neighbor -> worldMap.get(worldWrapped(neighbor)))
                 .filter(Cell.ALIVE::equals)
                 .count();
@@ -78,7 +78,7 @@ public final class World {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                sb.append(isAliveAt(Location.of(i, j)) ? "0" : ".");
+                sb.append(Cell.ALIVE.equals(cellAt(Location.of(i, j))) ? "0" : ".");
             }
             sb.append("\n");
         }

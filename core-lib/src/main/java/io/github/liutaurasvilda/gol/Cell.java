@@ -6,16 +6,16 @@ enum Cell {
 
     ALIVE;
 
-    static BiFunction<Boolean, Long, Cell> regeneration() {
-        return (isAlive, numberOfLivingNeighbors) -> {
-            Cell cell = null;
-            if (isAlive) {
-                if (numberOfLivingNeighbors == 2) cell = ALIVE;
-                if (numberOfLivingNeighbors == 3) cell = ALIVE;
+    static BiFunction<Cell, Integer, Cell> regeneration() {
+        return (currentCell, numberOfLivingNeighbors) -> {
+            Cell newCell = null;
+            if (ALIVE.equals(currentCell)) {
+                if (numberOfLivingNeighbors == 2) newCell = ALIVE;
+                if (numberOfLivingNeighbors == 3) newCell = ALIVE;
             } else if (numberOfLivingNeighbors == 3) {
-                cell = ALIVE;
+                newCell = ALIVE;
             }
-            return cell;
+            return newCell;
         };
     }
 }
