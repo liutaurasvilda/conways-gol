@@ -23,8 +23,18 @@ public class CellTest {
     }
 
     @Test
+    public void dead_cell_with_lass_than_three_living_neighbors_is_dead_in_next_generation() {
+        assertEquals(Cell.DEAD, Cell.inNextGeneration(Cell.DEAD, 2));
+    }
+
+    @Test
     public void dead_cell_with_three_living_neighbors_comes_to_life_in_next_generation() {
         assertEquals(Cell.ALIVE, Cell.inNextGeneration(Cell.DEAD, 3));
+    }
+
+    @Test
+    public void dead_cell_with_more_than_three_living_neighbors_is_dead_in_next_generation() {
+        assertEquals(Cell.DEAD, Cell.inNextGeneration(Cell.DEAD, 4));
     }
 
     @Test(expected = NullPointerException.class)
