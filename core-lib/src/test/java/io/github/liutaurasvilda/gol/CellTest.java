@@ -26,4 +26,9 @@ public class CellTest {
     public void dead_cell_with_three_living_neighbors_comes_to_life_in_next_generation() {
         assertEquals(Cell.ALIVE, Cell.inNextGeneration(Cell.DEAD, 3));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void exception_is_thrown_passing_anything_else_than_ALIVE_or_DEAD_cell() {
+        Cell.inNextGeneration(null, 0);
+    }
 }

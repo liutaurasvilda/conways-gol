@@ -10,6 +10,8 @@ enum Cell {
             if (numberOfLivingNeighbors == 3) return current;
         } else if (current == DEAD) {
             if (numberOfLivingNeighbors == 3) return ALIVE;
+        } else {
+            throw new IllegalArgumentException();
         }
         return DEAD;
     }
