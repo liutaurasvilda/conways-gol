@@ -45,7 +45,7 @@ public final class World {
         return !worldMap.isEmpty();
     }
 
-    public World tick() {
+    public World nextGeneration() {
         Map<Location, Cell> newWorldMap = IntStream.range(0, size)
                 .mapToObj(rowIndex -> IntStream.range(0, size)
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
