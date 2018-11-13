@@ -45,26 +45,27 @@ public final class World {
         return !worldMap.isEmpty();
     }
 
-    public World nextGeneration() {
+    public World tick() {
         Map<Location, Cell> newWorldMap = IntStream.range(0, size)
                 .mapToObj(rowIndex -> IntStream.range(0, size)
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        Cell.regeneration().apply(cellAt(location), numberOfLivingNeighborsAround(location))))
-                .filter(e -> e.getValue() != null)
+                        Cell.inNextGeneration(at(location), havingLivingNeighborsAround(location))))
+                .filter(e -> e.getValue() != Cell.DEAD)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
-        return new World(newWorldMap, size);
+        return new World(newWorldMap, this.size);
     }
 
-    private Cell cellAt(Location location) {
-        return worldMap.get(location);
+    private Cell at(Location location) {
+        Cell cell = worldMap.get(location);
+        return cell != null ? cell : Cell.DEAD;
     }
 
-    private int numberOfLivingNeighborsAround(Location location) {
+    private int havingLivingNeighborsAround(Location location) {
         return (int)location.neighborhood()
-                .map(neighbor -> worldMap.get(worldWrapped(neighbor)))
-                .filter(Cell.ALIVE::equals)
+                .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation)))
+                .filter(neighbor -> neighbor == Cell.ALIVE)
                 .count();
     }
 
@@ -78,7 +79,7 @@ public final class World {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                sb.append(Cell.ALIVE.equals(cellAt(Location.of(i, j))) ? "0" : ".");
+                sb.append(at(Location.of(i, j)) == Cell.ALIVE ? "0" : ".");
             }
             sb.append("\n");
         }

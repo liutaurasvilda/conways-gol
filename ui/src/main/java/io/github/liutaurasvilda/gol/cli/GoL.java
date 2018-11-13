@@ -18,7 +18,7 @@ final class GoL {
         world.aliveAt(Location.of(6, 6));
         while (world.hasPopulation()) {
             System.out.println(world);
-            world = world.nextGeneration();
+            world = world.tick();
         }
         System.out.println(world);
     }

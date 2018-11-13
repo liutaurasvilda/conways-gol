@@ -1,21 +1,16 @@
 package io.github.liutaurasvilda.gol;
 
-import java.util.function.BiFunction;
-
 enum Cell {
 
-    ALIVE;
+    ALIVE, DEAD;
 
-    static BiFunction<Cell, Integer, Cell> regeneration() {
-        return (currentCell, numberOfLivingNeighbors) -> {
-            Cell newCell = null;
-            if (ALIVE.equals(currentCell)) {
-                if (numberOfLivingNeighbors == 2) newCell = ALIVE;
-                if (numberOfLivingNeighbors == 3) newCell = ALIVE;
-            } else if (numberOfLivingNeighbors == 3) {
-                newCell = ALIVE;
-            }
-            return newCell;
-        };
+    static Cell inNextGeneration(Cell current, int numberOfLivingNeighbors) {
+        if (current == ALIVE) {
+            if (numberOfLivingNeighbors == 2) return current;
+            if (numberOfLivingNeighbors == 3) return current;
+        } else if (current == DEAD) {
+            if (numberOfLivingNeighbors == 3) return ALIVE;
+        }
+        return DEAD;
     }
 }

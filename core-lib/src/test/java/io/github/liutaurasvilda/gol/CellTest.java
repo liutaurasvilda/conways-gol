@@ -7,22 +7,23 @@ import static org.junit.Assert.*;
 public class CellTest {
 
     @Test
-    public void alive_cell_with_two_alive_neighbors_regenerates_to_alive_cell() {
-        assertEquals(Cell.ALIVE, Cell.regeneration().apply(Cell.ALIVE, 2));
+    public void alive_cell_with_less_than_two_living_neighbors_dies_in_next_generation() {
+        assertEquals(Cell.DEAD, Cell.inNextGeneration(Cell.ALIVE, 1));
     }
 
     @Test
-    public void alive_cell_with_three_alive_neighbors_regenerates_to_alive_cell() {
-        assertEquals(Cell.ALIVE, Cell.regeneration().apply(Cell.ALIVE, 3));
+    public void alive_cell_with_two_or_tree_living_neighbors_lives_on_in_next_generation() {
+        assertEquals(Cell.ALIVE, Cell.inNextGeneration(Cell.ALIVE, 2));
+        assertEquals(Cell.ALIVE, Cell.inNextGeneration(Cell.ALIVE, 3));
     }
 
     @Test
-    public void unpopulated_cell_with_three_alive_neighbors_regenerates_to_alive_cell() {
-        assertEquals(Cell.ALIVE, Cell.regeneration().apply(null, 3));
+    public void alive_cell_with_more_than_three_living_neighbors_dies_in_next_generation() {
+        assertEquals(Cell.DEAD, Cell.inNextGeneration(Cell.ALIVE, 4));
     }
 
     @Test
-    public void alive_cell_with_one_alive_neighbor_becomes_unpopulated() {
-        assertNull(Cell.regeneration().apply(Cell.ALIVE, 1));
+    public void dead_cell_with_three_living_neighbors_comes_to_life_in_next_generation() {
+        assertEquals(Cell.ALIVE, Cell.inNextGeneration(Cell.DEAD, 3));
     }
 }

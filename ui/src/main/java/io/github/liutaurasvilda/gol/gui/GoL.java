@@ -43,7 +43,7 @@ final class GoL {
         ActionListener worldGenerationListener = e -> {
             if (world.hasPopulation()) {
                 populateWithAliveCells(panel);
-                world = world.nextGeneration();
+                world = world.tick();
             } else {
                 populateWithEmptyCells(panel);
             }
