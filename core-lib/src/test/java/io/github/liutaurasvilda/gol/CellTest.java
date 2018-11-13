@@ -27,8 +27,8 @@ public class CellTest {
         assertEquals(Cell.ALIVE, Cell.inNextGeneration(Cell.DEAD, 3));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exception_is_thrown_passing_anything_else_than_ALIVE_or_DEAD_cell() {
+    @Test(expected = NullPointerException.class)
+    public void exception_is_thrown_if_cell_instance_is_not_passed() {
         Cell.inNextGeneration(null, 0);
     }
 }
