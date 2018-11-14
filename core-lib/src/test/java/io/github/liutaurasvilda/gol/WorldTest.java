@@ -10,7 +10,7 @@ public class WorldTest {
     @Test
     public void empty_world_has_no_population() {
         World world = World.empty();
-        assertThat(world.hasPopulation(),is(false));
+        assertThat(world.hasPopulation(), is(false));
     }
 
     @Test
