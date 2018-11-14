@@ -1,19 +1,20 @@
 package io.github.liutaurasvilda.gol;
 
-import java.util.Objects;
-
 enum Cell {
 
-    ALIVE, DEAD;
-
-    static Cell inNextGeneration(Cell current, int numberOfLivingNeighbors) {
-        Objects.requireNonNull(current);
-        if (current == ALIVE) {
-            if (numberOfLivingNeighbors == 2) return current;
-            if (numberOfLivingNeighbors == 3) return current;
-        } else if (current == DEAD) {
-            if (numberOfLivingNeighbors == 3) return ALIVE;
+    ALIVE {
+        @Override
+        public Cell next(int neighbors) {
+            return neighbors == 2 || neighbors == 3 ? this : DEAD;
         }
-        return DEAD;
-    }
+    },
+
+    DEAD {
+        @Override
+        public Cell next(int neighbors) {
+            return neighbors == 3 ? ALIVE : this;
+        }
+    };
+
+    abstract Cell next(int neighbors);
 }

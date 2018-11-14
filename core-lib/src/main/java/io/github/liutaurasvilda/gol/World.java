@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.AbstractMap.SimpleEntry;
 
+import static io.github.liutaurasvilda.gol.Cell.*;
 import static java.util.stream.Collectors.toMap;
 
 public final class World {
@@ -38,7 +39,7 @@ public final class World {
                 worldWrapped(Location.of(
                         Math.abs(location.rowIndex()),
                         Math.abs(location.columnIndex())))),
-                Cell.ALIVE);
+                ALIVE);
     }
 
     public boolean hasPopulation() {
@@ -51,21 +52,21 @@ public final class World {
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        Cell.inNextGeneration(at(location), havingLivingNeighborsAround(location))))
-                .filter(e -> e.getValue() == Cell.ALIVE)
+                        at(location).next(livingNeighborsAround(location))))
+                .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
     }
 
     private Cell at(Location location) {
-        Cell cell = worldMap.get(location);
-        return cell != null ? cell : Cell.DEAD;
+        Cell existing = worldMap.get(location);
+        return existing != null ? existing : DEAD;
     }
 
-    private int havingLivingNeighborsAround(Location location) {
+    private int livingNeighborsAround(Location location) {
         return (int)location.neighborhood()
                 .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation)))
-                .filter(neighbor -> neighbor == Cell.ALIVE)
+                .filter(neighbor -> neighbor == ALIVE)
                 .count();
     }
 
@@ -79,7 +80,7 @@ public final class World {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                sb.append(at(Location.of(i, j)) == Cell.ALIVE ? "0" : ".");
+                sb.append(at(Location.of(i, j)) == ALIVE ? "0" : ".");
             }
             sb.append("\n");
         }
