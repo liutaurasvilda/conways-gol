@@ -48,11 +48,9 @@ public final class World {
 
     public World nextGeneration() {
         Map<Location, Cell> newWorldMap = IntStream.range(0, size)
-                .mapToObj(rowIndex -> IntStream.range(0, size)
-                        .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
+                .mapToObj(rowIndex -> IntStream.range(0, size).mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
-                .map(location -> new SimpleEntry<>(location,
-                        at(location).next(livingNeighborsAround(location))))
+                .map(location -> new SimpleEntry<>(location, at(location).next(neighborsOf(location))))
                 .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
@@ -63,7 +61,7 @@ public final class World {
         return existing != null ? existing : DEAD;
     }
 
-    private int livingNeighborsAround(Location location) {
+    private int neighborsOf(Location location) {
         return (int)location.neighborhood()
                 .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation)))
                 .filter(neighbor -> neighbor == ALIVE)
