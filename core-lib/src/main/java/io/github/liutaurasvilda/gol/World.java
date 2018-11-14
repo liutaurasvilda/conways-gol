@@ -52,7 +52,7 @@ public final class World {
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
                         Cell.inNextGeneration(at(location), havingLivingNeighborsAround(location))))
-                .filter(e -> e.getValue() != Cell.DEAD)
+                .filter(e -> e.getValue() == Cell.ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
     }
