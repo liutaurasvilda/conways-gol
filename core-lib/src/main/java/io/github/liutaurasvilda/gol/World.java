@@ -48,9 +48,11 @@ public final class World {
 
     public World nextGeneration() {
         Map<Location, Cell> newWorldMap = IntStream.range(0, size)
-                .mapToObj(rowIndex -> IntStream.range(0, size).mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
+                .mapToObj(rowIndex -> IntStream.range(0, size)
+                        .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
-                .map(location -> new SimpleEntry<>(location, at(location).next(neighborsOf(location))))
+                .map(location -> new SimpleEntry<>(location,
+                        at(location).next(neighborsOf(location))))
                 .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
