@@ -55,17 +55,17 @@ public final class Location {
         LEFT(0, -1),                        RIGHT(0, +1),
         BOTTOM_LEFT(+1, -1), BOTTOM(+1, 0), BOTTOM_RIGHT(+1, +1);
 
-        private final int rowIndex;
-        private final int columnIndex;
+        private final int rowOffset;
+        private final int columnOffset;
 
-        Direction(int rowIndex, int columnIndex) {
-            this.rowIndex = rowIndex;
-            this.columnIndex = columnIndex;
+        Direction(int rowOffset, int columnOffset) {
+            this.rowOffset = rowOffset;
+            this.columnOffset = columnOffset;
         }
 
         private Location neighborOf(Location location) {
-            return Location.of(location.rowIndex + rowIndex,
-                    location.columnIndex + columnIndex);
+            return Location.of(location.rowIndex + rowOffset,
+                    location.columnIndex + columnOffset);
         }
     }
 }
