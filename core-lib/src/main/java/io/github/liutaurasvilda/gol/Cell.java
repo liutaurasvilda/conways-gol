@@ -5,14 +5,16 @@ enum Cell {
     ALIVE {
         @Override
         public Cell next(int neighbors) {
-            return neighbors == 2 || neighbors == 3 ? this : DEAD;
+            return neighbors == 2 || neighbors == 3
+                    ? this : DEAD;
         }
     },
 
     DEAD {
         @Override
         public Cell next(int neighbors) {
-            return neighbors == 3 ? ALIVE : this;
+            return neighbors == 3
+                    ? ALIVE : this;
         }
     };
 
