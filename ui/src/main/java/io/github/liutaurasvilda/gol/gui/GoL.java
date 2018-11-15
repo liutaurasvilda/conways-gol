@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 final class GoL {
 
     private World world;
+    private Timer timer;
 
     GoL() {
         buildWorld();
@@ -35,22 +36,22 @@ final class GoL {
         JPanel panel = new JPanel(new GridLayout(world.getSize(), world.getSize()));
         frame.add(panel);
 
-        fillWithButtons(panel);
+        addButtonsTo(panel);
 
         frame.pack();
         frame.setVisible(true);
 
         ActionListener worldGenerationListener = e -> {
+            update(panel);
             if (world.hasPopulation()) {
-                populateWithAliveCells(panel);
                 world = world.nextGeneration();
             } else {
-                populateWithEmptyCells(panel);
+                timer.stop();
             }
         };
-        Timer t = new Timer(100, worldGenerationListener);
-        t.setInitialDelay(0);
-        t.start();
+        timer = new Timer(100, worldGenerationListener);
+        timer.setInitialDelay(0);
+        timer.start();
     }
 
     private void supportMacOSX() {
@@ -65,7 +66,7 @@ final class GoL {
         }
     }
 
-    private void fillWithButtons(JPanel panel) {
+    private void addButtonsTo(JPanel panel) {
         for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
             JButton button = new JButton();
             button.setPreferredSize(new Dimension(20, 20));
@@ -75,7 +76,7 @@ final class GoL {
         }
     }
 
-    private void populateWithAliveCells(JPanel panel) {
+    private void update(JPanel panel) {
         String[] cells = world.toString().replace("\n", "").split("");
         for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
             JButton button = (JButton)panel.getComponent(i);
@@ -84,13 +85,6 @@ final class GoL {
             } else {
                 button.setBackground(Color.GRAY);
             }
-        }
-    }
-
-    private void populateWithEmptyCells(JPanel panel) {
-        for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
-            JButton button = (JButton)panel.getComponent(i);
-            button.setBackground(Color.GRAY);
         }
     }
 }
