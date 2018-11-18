@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol;
 
-enum Cell {
+public enum Cell {
 
     ALIVE {
         @Override

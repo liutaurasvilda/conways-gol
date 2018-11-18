@@ -24,6 +24,10 @@ public final class World {
         return new World(new HashMap<>(), DEFAULT_SIZE);
     }
 
+    public static World empty(int size) {
+        return new World(new HashMap<>(), size);
+    }
+
     public int getSize() {
         return size;
     }
@@ -42,6 +46,14 @@ public final class World {
                 ALIVE);
     }
 
+    public void deadAt(Location location) {
+        worldMap.put(Objects.requireNonNull(
+                worldWrapped(Location.of(
+                        Math.abs(location.rowIndex()),
+                        Math.abs(location.columnIndex())))),
+                DEAD);
+    }
+
     public boolean hasPopulation() {
         return !worldMap.isEmpty();
     }
@@ -58,7 +70,7 @@ public final class World {
         return new World(newWorldMap, this.size);
     }
 
-    private Cell at(Location location) {
+    public Cell at(Location location) {
         Cell existing = worldMap.get(location);
         return existing != null ? existing : DEAD;
     }
@@ -70,9 +82,14 @@ public final class World {
                 .count();
     }
 
-    private Location worldWrapped(Location location) {
+    public Location worldWrapped(Location location) {
         return Location.of((location.rowIndex() + size) % size,
                 (location.columnIndex() + size) % size);
+    }
+
+    public Location add(Location lhs, Location rhs) {
+        return worldWrapped(Location.of(lhs.rowIndex() + rhs.rowIndex(),
+                lhs.columnIndex() + rhs.columnIndex()) );
     }
 
     @Override
