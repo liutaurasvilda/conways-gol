@@ -37,8 +37,8 @@ public final class World {
     public void aliveAt(Location location) {
         worldMap.put(Objects.requireNonNull(
                 worldWrapped(Location.of(
-                        Math.abs(location.rowIndex()),
-                        Math.abs(location.columnIndex())))),
+                        location.rowIndex(),
+                        location.columnIndex()))),
                 ALIVE);
     }
 
@@ -71,8 +71,12 @@ public final class World {
     }
 
     private Location worldWrapped(Location location) {
-        return Location.of((location.rowIndex() + size) % size,
-                (location.columnIndex() + size) % size);
+        int auxiliaryIndex;
+        auxiliaryIndex = (location.rowIndex() + size) % size;
+        int rowIndex = auxiliaryIndex < 0 ? auxiliaryIndex + size : auxiliaryIndex;
+        auxiliaryIndex = (location.columnIndex() + size) % size;
+        int columnIndex = auxiliaryIndex < 0 ? auxiliaryIndex + size : auxiliaryIndex;
+        return Location.of(rowIndex, columnIndex);
     }
 
     @Override
