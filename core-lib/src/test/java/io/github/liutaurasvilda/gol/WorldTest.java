@@ -70,32 +70,6 @@ public class WorldTest {
     }
 
     @Test
-    public void world_is_oval_specifying_location_with_positive_indices() {
-        World world1 = World.empty();
-        world1.setSize(20);
-        world1.aliveAt(Location.of(0, 0));
-
-        World world2 = World.empty();
-        world2.setSize(20);
-        world2.aliveAt(Location.of(20, 20));
-
-        assertThat(world1.toString(), is(equalTo(world2.toString())));
-    }
-
-    @Test
-    public void world_is_oval_specifying_location_with_negative_indices() {
-        World world1 = World.empty();
-        world1.setSize(20);
-        world1.aliveAt(Location.of(0, 0));
-
-        World world2 = World.empty();
-        world2.setSize(20);
-        world2.aliveAt(Location.of(-20, -20));
-
-        assertThat(world1.toString(), is(equalTo(world2.toString())));
-    }
-
-    @Test
     public void world_toString() {
         String expected =
                 "..........\n" +
