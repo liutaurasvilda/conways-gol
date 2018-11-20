@@ -71,12 +71,10 @@ public final class World {
     }
 
     private Location worldWrapped(Location location) {
-        int auxiliaryIndex;
-        auxiliaryIndex = (location.rowIndex() + size) % size;
-        int rowIndex = auxiliaryIndex < 0 ? auxiliaryIndex + size : auxiliaryIndex;
-        auxiliaryIndex = (location.columnIndex() + size) % size;
-        int columnIndex = auxiliaryIndex < 0 ? auxiliaryIndex + size : auxiliaryIndex;
-        return Location.of(rowIndex, columnIndex);
+        int rowIndex = (location.rowIndex() + size) % size;
+        int columnIndex = (location.columnIndex() + size) % size;
+        return Location.of(rowIndex < 0 ? rowIndex + size : rowIndex,
+                columnIndex < 0 ? columnIndex + size : columnIndex);
     }
 
     @Override
