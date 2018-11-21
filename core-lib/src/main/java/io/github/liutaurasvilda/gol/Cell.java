@@ -18,5 +18,5 @@ enum Cell {
         }
     };
 
-    abstract Cell next(int neighbors);
+    abstract Cell next(int livingNeighbors);
 }
