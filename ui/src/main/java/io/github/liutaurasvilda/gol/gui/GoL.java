@@ -6,8 +6,12 @@ import io.github.liutaurasvilda.gol.World;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 final class GoL {
+
+    private static final int SIZE = 30;
 
     private World world;
     private Timer timer;
@@ -18,13 +22,14 @@ final class GoL {
     }
 
     private void buildWorld() {
-        world = World.empty();
-        world.setSize(30);
-        world.setLivingAt(Location.of(4, 5));
-        world.setLivingAt(Location.of(5, 6));
-        world.setLivingAt(Location.of(6, 4));
-        world.setLivingAt(Location.of(6, 5));
-        world.setLivingAt(Location.of(6, 6));
+        List<Location> seed = Arrays.asList(
+                Location.of(4, 5),
+                Location.of(5, 6),
+                Location.of(6, 4),
+                Location.of(6, 5),
+                Location.of(6, 6)
+        );
+        world = World.generation(seed, SIZE);
     }
 
     private void buildGUI() {
@@ -33,7 +38,7 @@ final class GoL {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel(new GridLayout(world.getSize(), world.getSize()));
+        JPanel panel = new JPanel(new GridLayout(SIZE, SIZE));
         frame.add(panel);
 
         addButtonsTo(panel);
@@ -67,7 +72,7 @@ final class GoL {
     }
 
     private void addButtonsTo(JPanel panel) {
-        for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
+        for (int i = 0; i < Math.pow(SIZE, 2); i++) {
             JButton button = new JButton();
             button.setPreferredSize(new Dimension(20, 20));
             button.setBackground(Color.GRAY);
@@ -78,7 +83,7 @@ final class GoL {
 
     private void update(JPanel panel) {
         String[] cells = world.toString().replace("\n", "").split("");
-        for (int i = 0; i < Math.pow(world.getSize(), 2); i++) {
+        for (int i = 0; i < Math.pow(SIZE, 2); i++) {
             JButton button = (JButton)panel.getComponent(i);
             if (cells[i].equals("0")) {
                 button.setBackground(Color.ORANGE);

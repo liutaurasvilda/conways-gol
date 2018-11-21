@@ -14,23 +14,22 @@ public final class World {
     private static final int DEFAULT_SIZE = 10;
 
     private final Map<Location, Cell> worldMap;
-    private int size;
+    private final int worldSize;
 
-    private World(Map<Location, Cell> worldMap, int size) {
+    private World(Map<Location, Cell> worldMap, int worldSize) {
         this.worldMap = worldMap;
-        this.size = size;
+        this.worldSize = worldSize;
     }
 
-    public static World empty() {
-        return new World(new HashMap<>(), DEFAULT_SIZE);
-    }
-
-    public void setLivingAt(Location location) {
-        worldMap.put(Objects.requireNonNull(
-                worldWrapped(Location.of(
-                        location.rowIndex(),
-                        location.columnIndex()))),
-                ALIVE);
+    public static World generation(List<Location> seed, int size) {
+        if (Objects.requireNonNull(seed).stream().anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Seed location cannot be null");
+        }
+        int worldSize = size > DEFAULT_SIZE ? size : DEFAULT_SIZE;
+        Map<Location, Cell> worldMap = seed.stream()
+                .map(location -> new SimpleEntry<>(worldWrapped(location, worldSize), ALIVE))
+                .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
+        return new World(worldMap, worldSize);
     }
 
     public boolean hasPopulation() {
@@ -43,12 +42,12 @@ public final class World {
                         cellAt(location).next(livingNeighborsOf(location))))
                 .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
-        return new World(newWorldMap, this.size);
+        return new World(newWorldMap, worldSize);
     }
 
     private Stream<Location> worldLocations() {
-        return IntStream.range(0, size)
-                .mapToObj(rowIndex -> IntStream.range(0, size)
+        return IntStream.range(0, worldSize)
+                .mapToObj(rowIndex -> IntStream.range(0, worldSize)
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity());
     }
@@ -60,33 +59,23 @@ public final class World {
 
     private int livingNeighborsOf(Location location) {
         return (int)location.neighborhood()
-                .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation)))
+                .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation, worldSize)))
                 .filter(neighbor -> neighbor == ALIVE)
                 .count();
     }
 
-    private Location worldWrapped(Location location) {
+    private static Location worldWrapped(Location location, int size) {
         int rowIndex = (location.rowIndex() + size) % size;
         int columnIndex = (location.columnIndex() + size) % size;
         return Location.of(rowIndex < 0 ? rowIndex + size : rowIndex,
                 columnIndex < 0 ? columnIndex + size : columnIndex);
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        if (size > DEFAULT_SIZE) {
-            this.size = size;
-        }
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < worldSize; i++) {
+            for (int j = 0; j < worldSize; j++) {
                 sb.append(cellAt(Location.of(i, j)) == ALIVE ? "0" : ".");
             }
             sb.append("\n");

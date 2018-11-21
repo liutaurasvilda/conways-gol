@@ -2,71 +2,64 @@ package io.github.liutaurasvilda.gol;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class WorldTest {
 
+    private static final int DEFAULT_SIZE = 10;
+
     @Test
-    public void empty_world_has_no_population() {
-        World world = World.empty();
+    public void world_with_no_seed_has_no_population() {
+        List<Location> seed = Collections.emptyList();
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_one_living_cell_has_population() {
-        World world = World.empty();
-        world.setLivingAt(Location.of(0, 0));
+    public void world_with_one_seed_has_population() {
+        List<Location> seed = Collections.singletonList(Location.of(0, 0));
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.hasPopulation(), is(true));
     }
 
     @Test
-    public void world_with_no_population_has_no_population_in_next_generation() {
-        World world = World.empty();
+    public void world_with_no_seed_has_no_population_in_next_generation() {
+        List<Location> seed = Collections.emptyList();
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_one_living_cell_has_no_population_in_next_generation() {
-        World world = World.empty();
-        world.setLivingAt(Location.of(0, 0));
+    public void world_with_one_seed_has_no_population_in_next_generation() {
+        List<Location> seed = Collections.singletonList(Location.of(0, 0));
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_two_living_cells_has_no_population_in_next_generation() {
-        World world = World.empty();
-        world.setLivingAt(Location.of(0, 0));
-        world.setLivingAt(Location.of(1, 0));
+    public void world_with_two_seed_has_no_population_in_next_generation() {
+        List<Location> seed = Arrays.asList(
+                Location.of(0, 0),
+                Location.of(1, 0)
+        );
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_three_inline_living_cells_has_population_in_next_generation() {
-        World world = World.empty();
-        world.setLivingAt(Location.of(0, 0));
-        world.setLivingAt(Location.of(1, 0));
-        world.setLivingAt(Location.of(2, 0));
+    public void world_with_three_inline_seed_has_population_in_next_generation() {
+        List<Location> seed = Arrays.asList(
+                Location.of(0, 0),
+                Location.of(1, 0),
+                Location.of(2, 0)
+        );
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(true));
-    }
-
-    @Test
-    public void empty_world_has_size_of_10() {
-        assertThat(World.empty().getSize(), is(equalTo(10)));
-    }
-
-    @Test
-    public void world_with_size_set_less_than_10_has_size_10() {
-        World world = World.empty();
-        world.setSize(9);
-        assertThat(world.getSize(), is(equalTo(10)));
-    }
-
-    @Test
-    public void world_with_size_set_20_has_size_20() {
-        World world = World.empty();
-        world.setSize(20);
-        assertThat(world.getSize(), is(equalTo(20)));
     }
 
     @Test
@@ -82,12 +75,14 @@ public class WorldTest {
                 "..........\n" +
                 "..........\n" +
                 "..........\n";
-        World world = World.empty();
-        world.setLivingAt(Location.of(4, 5));
-        world.setLivingAt(Location.of(5, 6));
-        world.setLivingAt(Location.of(6, 4));
-        world.setLivingAt(Location.of(6, 5));
-        world.setLivingAt(Location.of(6, 6));
+        List<Location> seed = Arrays.asList(
+                Location.of(4, 5),
+                Location.of(5, 6),
+                Location.of(6, 4),
+                Location.of(6, 5),
+                Location.of(6, 6)
+        );
+        World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.toString(), is(equalTo(expected)));
     }
 }
