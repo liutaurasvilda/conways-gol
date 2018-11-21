@@ -64,11 +64,11 @@ public final class World {
                 .count();
     }
 
-    private static Location worldWrapped(Location location, int size) {
-        int rowIndex = (location.rowIndex() + size) % size;
-        int columnIndex = (location.columnIndex() + size) % size;
-        return Location.of(rowIndex < 0 ? rowIndex + size : rowIndex,
-                columnIndex < 0 ? columnIndex + size : columnIndex);
+    private static Location worldWrapped(Location location, int worldSize) {
+        int rowIndex = (location.rowIndex() + worldSize) % worldSize;
+        int columnIndex = (location.columnIndex() + worldSize) % worldSize;
+        return Location.of(rowIndex < 0 ? rowIndex + worldSize : rowIndex,
+                columnIndex < 0 ? columnIndex + worldSize : columnIndex);
     }
 
     @Override
