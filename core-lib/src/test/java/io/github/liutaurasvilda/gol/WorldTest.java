@@ -16,7 +16,7 @@ public class WorldTest {
     @Test
     public void world_with_one_alive_cell_has_population() {
         World world = World.empty();
-        world.aliveAt(Location.of(0, 0));
+        world.setLivingAt(Location.of(0, 0));
         assertThat(world.hasPopulation(), is(true));
     }
 
@@ -29,24 +29,24 @@ public class WorldTest {
     @Test
     public void world_with_one_alive_cell_has_no_population_in_next_generation() {
         World world = World.empty();
-        world.aliveAt(Location.of(0, 0));
+        world.setLivingAt(Location.of(0, 0));
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
     public void world_with_two_inline_alive_cells_has_no_population_in_next_generation() {
         World world = World.empty();
-        world.aliveAt(Location.of(0, 0));
-        world.aliveAt(Location.of(1, 0));
+        world.setLivingAt(Location.of(0, 0));
+        world.setLivingAt(Location.of(1, 0));
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
     public void world_with_three_inline_alive_cells_has_population_in_next_generation() {
         World world = World.empty();
-        world.aliveAt(Location.of(0, 0));
-        world.aliveAt(Location.of(1, 0));
-        world.aliveAt(Location.of(2, 0));
+        world.setLivingAt(Location.of(0, 0));
+        world.setLivingAt(Location.of(1, 0));
+        world.setLivingAt(Location.of(2, 0));
         assertThat(world.nextGeneration().hasPopulation(), is(true));
     }
 
@@ -83,11 +83,11 @@ public class WorldTest {
                 "..........\n" +
                 "..........\n";
         World world = World.empty();
-        world.aliveAt(Location.of(4, 5));
-        world.aliveAt(Location.of(5, 6));
-        world.aliveAt(Location.of(6, 4));
-        world.aliveAt(Location.of(6, 5));
-        world.aliveAt(Location.of(6, 6));
+        world.setLivingAt(Location.of(4, 5));
+        world.setLivingAt(Location.of(5, 6));
+        world.setLivingAt(Location.of(6, 4));
+        world.setLivingAt(Location.of(6, 5));
+        world.setLivingAt(Location.of(6, 6));
         assertThat(world.toString(), is(equalTo(expected)));
     }
 }

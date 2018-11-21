@@ -24,17 +24,7 @@ public final class World {
         return new World(new HashMap<>(), DEFAULT_SIZE);
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        if (size > DEFAULT_SIZE) {
-            this.size = size;
-        }
-    }
-
-    public void aliveAt(Location location) {
+    public void setLivingAt(Location location) {
         worldMap.put(Objects.requireNonNull(
                 worldWrapped(Location.of(
                         location.rowIndex(),
@@ -52,18 +42,18 @@ public final class World {
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        at(location).next(neighborsOf(location))))
+                        cellAt(location).next(livingNeighborsAround(location))))
                 .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
     }
 
-    private Cell at(Location location) {
+    private Cell cellAt(Location location) {
         Cell existing = worldMap.get(location);
         return existing != null ? existing : DEAD;
     }
 
-    private int neighborsOf(Location location) {
+    private int livingNeighborsAround(Location location) {
         return (int)location.neighborhood()
                 .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation)))
                 .filter(neighbor -> neighbor == ALIVE)
@@ -77,12 +67,22 @@ public final class World {
                 columnIndex < 0 ? columnIndex + size : columnIndex);
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        if (size > DEFAULT_SIZE) {
+            this.size = size;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                sb.append(at(Location.of(i, j)) == ALIVE ? "0" : ".");
+                sb.append(cellAt(Location.of(i, j)) == ALIVE ? "0" : ".");
             }
             sb.append("\n");
         }
