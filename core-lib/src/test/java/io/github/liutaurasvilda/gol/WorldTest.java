@@ -14,35 +14,35 @@ public class WorldTest {
     private static final int DEFAULT_SIZE = 10;
 
     @Test
-    public void world_with_no_seed_has_no_population() {
+    public void world_generation_with_no_seed_has_no_population() {
         List<Location> seed = Collections.emptyList();
         World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_one_seed_has_population() {
+    public void world_generation_with_one_seed_has_population() {
         List<Location> seed = Collections.singletonList(Location.of(0, 0));
         World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.hasPopulation(), is(true));
     }
 
     @Test
-    public void world_with_no_seed_has_no_population_in_next_generation() {
+    public void world_generation_with_no_seed_has_no_population_in_next_generation() {
         List<Location> seed = Collections.emptyList();
         World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_one_seed_has_no_population_in_next_generation() {
+    public void world_generation_with_one_seed_has_no_population_in_next_generation() {
         List<Location> seed = Collections.singletonList(Location.of(0, 0));
         World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_two_seed_has_no_population_in_next_generation() {
+    public void world_generation_with_two_seed_has_no_population_in_next_generation() {
         List<Location> seed = Arrays.asList(
                 Location.of(0, 0),
                 Location.of(1, 0)
@@ -52,11 +52,27 @@ public class WorldTest {
     }
 
     @Test
-    public void world_with_three_inline_seed_has_population_in_next_generation() {
+    public void world_generation_with_three_inline_seed_has_population_in_next_generation() {
         List<Location> seed = Arrays.asList(
                 Location.of(0, 0),
                 Location.of(1, 0),
                 Location.of(2, 0)
+        );
+        World world = World.generation(seed, DEFAULT_SIZE);
+        assertThat(world.nextGeneration().hasPopulation(), is(true));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void world_generation_with_seed_being_null_throws_an_exception() {
+        World world = World.generation(null, DEFAULT_SIZE);
+        assertThat(world.nextGeneration().hasPopulation(), is(true));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void world_generation_with_one_seed_being_null_throws_an_exception() {
+        List<Location> seed = Arrays.asList(
+                Location.of(0, 0),
+                null
         );
         World world = World.generation(seed, DEFAULT_SIZE);
         assertThat(world.nextGeneration().hasPopulation(), is(true));
