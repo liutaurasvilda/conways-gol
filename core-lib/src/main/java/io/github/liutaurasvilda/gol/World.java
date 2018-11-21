@@ -42,7 +42,7 @@ public final class World {
                         .mapToObj(columnIndex -> Location.of(rowIndex, columnIndex)))
                 .flatMap(Function.identity())
                 .map(location -> new SimpleEntry<>(location,
-                        cellAt(location).next(livingNeighborsAround(location))))
+                        cellAt(location).next(livingNeighborsOf(location))))
                 .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
         return new World(newWorldMap, this.size);
@@ -53,7 +53,7 @@ public final class World {
         return existing != null ? existing : DEAD;
     }
 
-    private int livingNeighborsAround(Location location) {
+    private int livingNeighborsOf(Location location) {
         return (int)location.neighborhood()
                 .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation)))
                 .filter(neighbor -> neighbor == ALIVE)
