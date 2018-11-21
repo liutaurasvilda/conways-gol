@@ -16,13 +16,13 @@ public final class World {
     private final Map<Location, Cell> worldMap;
     private int size;
 
-    private World(Map<Location, Cell> worldMap) {
+    private World(Map<Location, Cell> worldMap, int size) {
         this.worldMap = worldMap;
-        this.size = DEFAULT_SIZE;
+        this.size = size;
     }
 
     public static World empty() {
-        return new World(new HashMap<>());
+        return new World(new HashMap<>(), DEFAULT_SIZE);
     }
 
     public void setLivingAt(Location location) {
@@ -43,7 +43,7 @@ public final class World {
                         cellAt(location).next(livingNeighborsOf(location))))
                 .filter(e -> e.getValue() == ALIVE)
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
-        return new World(newWorldMap);
+        return new World(newWorldMap, this.size);
     }
 
     private Stream<Location> worldLocations() {
