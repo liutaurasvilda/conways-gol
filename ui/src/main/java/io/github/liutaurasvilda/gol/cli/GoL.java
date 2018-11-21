@@ -14,12 +14,11 @@ final class GoL {
 
     private void play() {
         List<Location> seed = Arrays.asList(
-                Location.of(14, 5),
+                Location.of(4, 5),
                 Location.of(5, 6),
                 Location.of(6, 4),
                 Location.of(6, 5),
-                Location.of(6, 6),
-                null
+                Location.of(6, 6)
         );
         World world = World.generation(seed, 10);
         while (world.hasPopulation()) {
