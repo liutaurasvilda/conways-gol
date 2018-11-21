@@ -14,7 +14,7 @@ public class WorldTest {
     }
 
     @Test
-    public void world_with_one_alive_cell_has_population() {
+    public void world_with_one_living_cell_has_population() {
         World world = World.empty();
         world.setLivingAt(Location.of(0, 0));
         assertThat(world.hasPopulation(), is(true));
@@ -27,14 +27,14 @@ public class WorldTest {
     }
 
     @Test
-    public void world_with_one_alive_cell_has_no_population_in_next_generation() {
+    public void world_with_one_living_cell_has_no_population_in_next_generation() {
         World world = World.empty();
         world.setLivingAt(Location.of(0, 0));
         assertThat(world.nextGeneration().hasPopulation(), is(false));
     }
 
     @Test
-    public void world_with_two_inline_alive_cells_has_no_population_in_next_generation() {
+    public void world_with_two_living_cells_has_no_population_in_next_generation() {
         World world = World.empty();
         world.setLivingAt(Location.of(0, 0));
         world.setLivingAt(Location.of(1, 0));
@@ -42,7 +42,7 @@ public class WorldTest {
     }
 
     @Test
-    public void world_with_three_inline_alive_cells_has_population_in_next_generation() {
+    public void world_with_three_inline_living_cells_has_population_in_next_generation() {
         World world = World.empty();
         world.setLivingAt(Location.of(0, 0));
         world.setLivingAt(Location.of(1, 0));
