@@ -11,7 +11,7 @@ import java.util.List;
 
 final class GoL {
 
-    private static final int SIZE = 30;
+    private static final int WORLD_SIZE = 30;
 
     private World world;
     private Timer timer;
@@ -29,7 +29,7 @@ final class GoL {
                 Location.of(6, 5),
                 Location.of(6, 6)
         );
-        world = World.generation(seed, SIZE);
+        world = World.generation(seed, WORLD_SIZE);
     }
 
     private void buildGUI() {
@@ -38,7 +38,7 @@ final class GoL {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel(new GridLayout(SIZE, SIZE));
+        JPanel panel = new JPanel(new GridLayout(WORLD_SIZE, WORLD_SIZE));
         frame.add(panel);
 
         addButtonsTo(panel);
@@ -72,7 +72,7 @@ final class GoL {
     }
 
     private void addButtonsTo(JPanel panel) {
-        for (int i = 0; i < Math.pow(SIZE, 2); i++) {
+        for (int i = 0; i < Math.pow(WORLD_SIZE, 2); i++) {
             JButton button = new JButton();
             button.setPreferredSize(new Dimension(20, 20));
             button.setBackground(Color.GRAY);
@@ -83,7 +83,7 @@ final class GoL {
 
     private void update(JPanel panel) {
         String[] cells = world.toString().replace("\n", "").split("");
-        for (int i = 0; i < Math.pow(SIZE, 2); i++) {
+        for (int i = 0; i < Math.pow(WORLD_SIZE, 2); i++) {
             JButton button = (JButton)panel.getComponent(i);
             if (cells[i].equals("0")) {
                 button.setBackground(Color.ORANGE);
