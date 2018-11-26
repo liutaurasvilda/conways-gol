@@ -27,12 +27,12 @@ public final class Location {
     }
 
     Stream<Location> neighborhood() {
-        return Arrays.stream(Direction.values())
+        return Arrays.stream(Position.values())
                 .map(this::neighbor);
     }
 
-    private Location neighbor(Direction direction) {
-        return direction.neighborOf(this);
+    private Location neighbor(Position position) {
+        return position.neighborOf(this);
     }
 
     @Override
@@ -49,16 +49,16 @@ public final class Location {
         return Objects.hash(rowIndex, columnIndex);
     }
 
-    private enum Direction {
+    private enum Position {
 
-        NORTH_WEST(-1, -1), NORTH(-1, 0), NORTH_EAST(-1, +1),
-        WEST(0, -1),                      EAST(0, +1),
-        SOUTH_WEST(+1, -1), SOUTH(+1, 0), SOUTH_EAST(+1, +1);
+        TOP_LEFT(-1, -1),    TOP(-1, 0),    TOP_RIGHT(-1, +1),
+        LEFT(0, -1),                        RIGHT(0, +1),
+        BOTTOM_LEFT(+1, -1), BOTTOM(+1, 0), BOTTOM_RIGHT(+1, +1);
 
         private final int rowOffset;
         private final int columnOffset;
 
-        Direction(int rowOffset, int columnOffset) {
+        Position(int rowOffset, int columnOffset) {
             this.rowOffset = rowOffset;
             this.columnOffset = columnOffset;
         }
