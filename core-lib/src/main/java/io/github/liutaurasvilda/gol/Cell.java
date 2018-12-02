@@ -6,7 +6,7 @@ enum Cell {
         @Override
         public Cell next(int livingNeighbors) {
             return livingNeighbors == 2 || livingNeighbors == 3
-                    ? this : DEAD;
+                    ? ALIVE : DEAD;
         }
     },
 
@@ -14,7 +14,7 @@ enum Cell {
         @Override
         public Cell next(int livingNeighbors) {
             return livingNeighbors == 3
-                    ? ALIVE : this;
+                    ? ALIVE : DEAD;
         }
     };
 
