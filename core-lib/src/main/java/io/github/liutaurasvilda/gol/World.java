@@ -25,7 +25,7 @@ public final class World {
         if (Objects.requireNonNull(seed).stream().anyMatch(Objects::isNull)) {
             throw new IllegalArgumentException("Seed location cannot be null");
         }
-        int size = worldSize > DEFAULT_SIZE ? worldSize : DEFAULT_SIZE;
+        int size = Math.max(worldSize, DEFAULT_SIZE);
         Map<Location, Cell> worldMap = seed.stream()
                 .map(location -> new SimpleEntry<>(worldWrapped(location, size), ALIVE))
                 .collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));

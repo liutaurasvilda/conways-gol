@@ -27,12 +27,8 @@ public final class Location {
     }
 
     Stream<Location> neighborhood() {
-        return Arrays.stream(Position.values())
-                .map(this::neighbor);
-    }
-
-    private Location neighbor(Position position) {
-        return position.neighborOf(this);
+        return Arrays.stream(Direction.values())
+                .map(direction -> direction.neighborOf(this));
     }
 
     @Override
@@ -49,7 +45,7 @@ public final class Location {
         return Objects.hash(rowIndex, columnIndex);
     }
 
-    private enum Position {
+    private enum Direction {
 
         TOP_LEFT(-1, -1),    TOP(-1, 0),    TOP_RIGHT(-1, +1),
         LEFT(0, -1),                        RIGHT(0, +1),
@@ -58,7 +54,7 @@ public final class Location {
         private final int rowOffset;
         private final int columnOffset;
 
-        Position(int rowOffset, int columnOffset) {
+        Direction(int rowOffset, int columnOffset) {
             this.rowOffset = rowOffset;
             this.columnOffset = columnOffset;
         }
