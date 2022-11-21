@@ -17,7 +17,7 @@
 
     <modules>
         <module>core-lib</module>
-        <module>ui</module>
+        <module>game</module>
     </modules>
 
     <dependencyManagement>
