@@ -1,12 +1,15 @@
 package io.github.liutaurasvilda.gol;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.stream.Stream;
 
-import static io.github.liutaurasvilda.gol.Cell.*;
+import static io.github.liutaurasvilda.gol.Cell.ALIVE;
+import static io.github.liutaurasvilda.gol.Cell.DEAD;
 import static java.util.stream.Collectors.toMap;
 
 public final class World {
@@ -58,7 +61,7 @@ public final class World {
     }
 
     private int livingNeighborsOf(Location location) {
-        return (int)location.neighborhood()
+        return (int) location.neighborhood()
                 .map(neighborLocation -> worldMap.get(worldWrapped(neighborLocation, size)))
                 .filter(neighbor -> neighbor == ALIVE)
                 .count();

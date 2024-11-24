@@ -1,6 +1,6 @@
 package io.github.liutaurasvilda.gol.gui;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 final class GoLLauncher {
 

@@ -3,7 +3,6 @@ package io.github.liutaurasvilda.gol.cli;
 import io.github.liutaurasvilda.gol.Location;
 import io.github.liutaurasvilda.gol.World;
 
-import java.util.Arrays;
 import java.util.List;
 
 final class GoL {
@@ -13,7 +12,7 @@ final class GoL {
     }
 
     private void play() {
-        List<Location> seed = Arrays.asList(
+        List<Location> seed = List.of(
                 Location.of(4, 5),
                 Location.of(5, 6),
                 Location.of(6, 4),

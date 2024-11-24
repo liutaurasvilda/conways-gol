@@ -3,10 +3,15 @@ package io.github.liutaurasvilda.gol.gui;
 import io.github.liutaurasvilda.gol.Location;
 import io.github.liutaurasvilda.gol.World;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.UIManager;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.List;
 
 final class GoL {
@@ -22,7 +27,7 @@ final class GoL {
     }
 
     private void buildWorld() {
-        List<Location> seed = Arrays.asList(
+        List<Location> seed = List.of(
                 Location.of(4, 5),
                 Location.of(5, 6),
                 Location.of(6, 4),
@@ -62,10 +67,8 @@ final class GoL {
     private void supportMacOSX() {
         if ("Mac OS X".equals(System.getProperty("os.name"))) {
             try {
-                UIManager.setLookAndFeel(
-                        UIManager.getCrossPlatformLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException |
-                    IllegalAccessException | UnsupportedLookAndFeelException e) {
+                UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -84,7 +87,7 @@ final class GoL {
     private void update(JPanel panel) {
         String[] cells = world.toString().replace("\n", "").split("");
         for (int i = 0; i < Math.pow(WORLD_SIZE, 2); i++) {
-            JButton button = (JButton)panel.getComponent(i);
+            JButton button = (JButton) panel.getComponent(i);
             if (cells[i].equals("0")) {
                 button.setBackground(Color.ORANGE);
             } else {
